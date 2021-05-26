@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <%- include('header'); -%>
+
+    <div class="cart-order container-fluid p-5">
+        <div class="order-header mb-3">
+            <h3>Order Summary</h3>
+            <p>List of all orders you've made </p>
+        </div>
+        <table class="table shadow p-3 bg-body rounded text-center">
+            <thead class="bg-secondary text-light">
+                <tr>
+                    <td>Product Name</td>
+                    <td>Image</td>
+                    <td>Quantity</td>
+                    <td class="hideonmobile">Price</td>
+                    <td class="hideonmobile">Payment</td>
+                    <td>Status</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody class="text-secondary">
+                <% for(var i = 0; i < ejsProducts.length; i++){%>
+                    
+                <!-- status change class -->
+                <% var statusClass = ejsProducts[i].orderStatus === "Shipping"? "bg-warning": (ejsProducts[i].orderStatus === "Cancelled"? "bg-danger" : "bg-success") %>
+                <% var editBtn = ejsProducts[i].orderStatus === "Shipping"? "d-inline-block": "d-none" %>
+                <!-- TABLE BODY -->
+                <tr class="text-center align-middle">
+                    <td><a href=""><%= ejsProducts[i].productName%></a></td>
+                    <td class="product-img"><img src= "../img/products/<%= ejsProducts[i].productImage %>" alt=""></td>
+                    <td><%= ejsProducts[i].orderQuantity%> pc(s)</td>
+                    <td class="order-price text-success hideonmobile">$<%= ejsProducts[i].orderPrice %></td>
+                    <td class="payment-method hideonmobile"><%= ejsProducts[i].paymentMethod %></td>
+                    <td><p class="<%= statusClass %> p-1 text-light rounded"><%= ejsProducts[i].orderStatus %></p></td>
+                    <td>
+                        <button class="btn btn-outline-primary me-2">Details</button>
+                        <button class="btn btn-outline-danger <%= editBtn %>">Edit</button>
+                    </td>
+                </tr>
+                <% } ; %>
+            </tbody>
+        </table>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">console.log("pepe")</script>
+
+</body>
+</html>

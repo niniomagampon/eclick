@@ -6,9 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eclick - Login Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    Login Here
+    <div class="container-fluid login-pg d-flex justify-content-center align-items-center">
+        <div class="row login-container justify-content-center">
+            <div class="col-6 g-0 img-container hideonmobile">
+              <img src="../img/login-basket.jpg" class="login-img" alt="">
+            </div>
+            <div class="col-12 col-md-6  g-0 loginform d-flex flex-column justify-content-center align-items-center">
+              <form action="" class="">
+                  <div class="login-title text-center">
+                    <img src="" alt="">Eclick Logo
+                    <h3 class="mt-3 fw-bold">Login</h3>
+                  </div>
+                  <div class=" d-flex flex-column ">
+                        <input type="text" name="username" placeholder="Username" class="my-3">
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                    <div class="d-flex flex-column align-items-center justify-content-center m-4">
+                        <button type="submit" class="btn btn-success">Login</button>
+                    </div>
+              </form>
+              <div class="loginbtn">
+                  <a href="#" class="text-decoration-none text-primary">Forgot Password?</a>
+              </div>
+              <div class="mt-3">
+                  <span>Don't Have account yet?</span><a href="" class="fw-bold mx-2 text-decoration-none text-danger">Register Here</a>
+              </div>
+            </div>
+        </div>    
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 const express = require("express")
 const ejs = require("ejs")
+const cartRoute = require("./routes/cart")
 
 const app = express()
 const port = process.env.PORT || 3000;
@@ -17,6 +18,7 @@ app.get("/", (req, res) =>{
     res.render("login")
 })
 
+app.use("/cart", cartRoute)
 
 
 // Server Starter
