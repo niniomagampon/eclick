@@ -34,6 +34,7 @@
                 <!-- status change class -->
                 <% var statusClass = ejsProducts[i].orderStatus === "Shipping"? "bg-warning": (ejsProducts[i].orderStatus === "Cancelled"? "bg-danger" : "bg-success") %>
                 <% var editBtn = ejsProducts[i].orderStatus === "Shipping"? "d-inline-block": "d-none" %>
+                
                 <!-- TABLE BODY -->
                 <tr class="text-center align-middle">
                     <td><a href=""><%= ejsProducts[i].productName%></a></td>

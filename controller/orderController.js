@@ -28,9 +28,7 @@ const displayOrder = (req, res) =>{
             paymentMethod: "COD",
             orderStatus: "Received"
         }
-
     ]
-
     res.render("cart",{
         ejsProducts : products
     })

@@ -70,13 +70,14 @@ input:focus{
 /* Navigation Bar */
 .iconSettings img,.searchbar img{
  width: 20px;
+ height: 15px;
  margin: 5px;
  cursor: pointer;
 }
 
 .iconSettings img:hover,.searchbar img:hover{
     width: 23px;
-    height: auto;
+    height: 23px;
 }
 
 .navbar{

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <%- include('header'); -%>
+    <div class="container-fluid p-5">
+        <h6>Choose Category</h6>
+        <form action="" class="d-flex align-items-center mt-3">
+            <select name="categoryValue" id="categoriesID">
+                <option value="cannedGoods">Canned Goods</option>
+                <option value="soapAndShampoo">Soap and Shampoo</option>
+                <option value="snacks">Snacks</option>
+            </select>
+            <button type="submit" class="btn btn-primary py-0 ms-2">Select</button>
+        </form>
+
+        <div class="row text-center mt-3">
+            <% for(var i = 0; i < ejsGoods.length; i++){%>
+            <div class="col-3">
+                <div class="card">
+                    <img src="../img/products/<%= ejsGoods[i].productImage %>" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title"><%= ejsGoods[i].productName %></h5>
+                      <a href="#" class="btn btn-warning m-3 iconSettings"><span class="hideonmobile">Add to Cart </span><img  src="../img/shopping-bag.svg" alt=""></a>
+                      <p class="card-text ">$<%= ejsGoods[i].orderPrice %></p>
+                    </div>
+                  </div>
+            </div>
+            <% }%>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">console.log("pepe")</script>
+
+</body>
+</html>
