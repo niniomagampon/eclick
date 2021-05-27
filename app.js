@@ -15,9 +15,7 @@ app.use(express.static('public'))
 
 
 // Database Connection
-// const dbConfig = {
-//     host : "localhost"
-// }
+
 
 
 // Route
