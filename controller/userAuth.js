@@ -1,45 +1,28 @@
 const express = require("express");
-const connection = require("../database/connection ")
-const bcrypt = require('bcryptjs')
+const connection = require("../database/connection")
+const createService = require("../service/create")
 
-
-const {name, email, mobile, password} = req.body
 
 const login = (req, res) =>{
-
+    const {email, password} = req.body
+    res.render("login")
 }
-
 
 const register = async (req, res) =>{
+    const {name, email, mobile, password} = req.body
 
-    bcrypt.hash(password, 10 ,(err, hashedPass) =>{
-        if(err){
-            console.log(err)
-            res.json({
-                error : err
+    const result = await createService(name,email,mobile,password)
+
+    if(result){
+        res.status(200)
+        .render("cart" ,{
+                ejsProducts : []
             })
-        }
-    })
-
-    
-    try{
-        const query = `
-        INSERT INTO ` +
-        `accounts ` + 
-        `VALUES ` +
-        `(null, '${name}','${email}','${mobile}', bcrypt'${hashedPass}')
-        `
-        await connection(query)
-
-        res.render()
-
+    }else{
+        console.log("error")
     }
-
-    catch{
-        return false
-    }
-
 }
+
 
 
 module.exports = {login, register}

@@ -2,6 +2,7 @@ const express = require("express")
 const ejs = require("ejs")
 const cartRoute = require("./routes/cart")
 const productsRoute = require("./routes/products")
+const userRoute = require("./routes/user")
 const mysql = require("mysql")
 
 
@@ -19,14 +20,8 @@ app.use(express.static('public'))
 
 
 // Route
-
-app.get("/", (req, res) =>{
-    res.render("login")
-})
-
-app.get("/register",(req , res) =>{
-    res.render("register")
-})
+// Login Route
+app.use("/", userRoute)
 
 app.use("/cart", cartRoute)
 
