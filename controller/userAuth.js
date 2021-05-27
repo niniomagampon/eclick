@@ -1,5 +1,4 @@
 const express = require("express");
-const connection = require("../database/connection")
 const createService = require("../service/create")
 
 
@@ -12,7 +11,6 @@ const register = async (req, res) =>{
     const {name, email, mobile, password} = req.body
 
     const result = await createService(name,email,mobile,password)
-    console.log(result)
     if(result){
         res.status(200)
         .render("cart" ,{
