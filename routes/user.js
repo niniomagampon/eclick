@@ -2,7 +2,11 @@ const express = require("express")
 const userRoute = express.Router()
 const userAuth = require("../controller/userAuth")
 
-userRoute.get("/login", userAuth.login)
+userRoute.post("/", userAuth.login)
+
+userRoute.get("/", (req, res) =>{
+    res.render("login")
+})
 
 userRoute.get("/register",(req, res) =>{
     res.render("register")
