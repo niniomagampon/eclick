@@ -6,12 +6,10 @@ module.exports = async (name, email, mobile, password) => {
   const hashedPass = await bcrypt.hash(password, salt);
 
   try {
-    await Account.create({name, email, mobile, password : hashedPass});
-    
-    return true;
+    await Account.create({ name, email, mobile, password: hashedPass });
 
+    return true;
   } catch (err) {
-    console.log(err);
-    return false;
+    return err;
   }
 };
