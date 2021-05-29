@@ -1,11 +1,11 @@
-const sequelize = require("../confgis/database")
-const { Model, DataTypes } = require("sequalize")
+const sequelize = require("../configs/database")
+const { Model, DataTypes } = require("sequelize")
 
 class Product extends Model { }
 
 Product.init({
     name: {
-        type: Datatypes.STRING,
+        type: DataTypes.STRING,
         allowNull : false,
         unique: true,
         validate: {
@@ -16,7 +16,7 @@ Product.init({
     },
 
     description: {
-        type: Datatypes.STRING,
+        type: DataTypes.STRING,
         allowNull : false,
         validate: {
             notEmpty: {
@@ -26,7 +26,7 @@ Product.init({
     },
 
     category: {
-        type: Datatypes.STRING,
+        type: DataTypes.STRING,
         allowNull : false,
         unique: true,
         validate: {
@@ -37,7 +37,7 @@ Product.init({
     },
 
     image: {
-        type: Datatypes.STRING,
+        type: DataTypes.STRING,
         allowNull : false,
         unique: true,
         validate: {
