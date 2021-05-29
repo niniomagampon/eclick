@@ -28,6 +28,6 @@ userRoute.get("/register",(req, res) =>{
     })
 })
 
-userRoute.post("/register/successfull", userAuth.register)
+userRoute.post("/register", userAuth.register)
 
 module.exports = userRoute
