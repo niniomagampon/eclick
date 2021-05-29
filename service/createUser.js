@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const Account = require("../models/Account");
 let hashedPass;
 
-module.exports = async (name, email, mobile, password) => {
+module.exports = async (name, email, mobile, password, userType) => {
 
   if (password === ""){
     hashedPass = password
@@ -12,7 +12,7 @@ module.exports = async (name, email, mobile, password) => {
   }
 
   try {
-    await Account.create({ name, email, mobile, password: hashedPass });
+    await Account.create({ name, email, mobile, password: hashedPass, userType});
 
     return true;
   } catch (err) {

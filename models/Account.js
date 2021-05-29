@@ -34,6 +34,16 @@ Account.init({
       }
     },
   },
+  userType:{
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: 'User Type is required'
+      }
+    },
+  },
+
   password: {
     type: DataTypes.STRING,
     allowNull: false,
