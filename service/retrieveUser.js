@@ -1,6 +1,6 @@
 const Account = require("../models/Account");
 
-module.exports = async (email) => {
+const login = async (email) => {
 
   try {
     const accountData =  await Account.findAll({
@@ -17,3 +17,17 @@ module.exports = async (email) => {
 
   }
 };
+
+const getAllUsers = async () =>{
+  try{
+    return await Account.findAll({
+      paranoid: false,
+      order: [["createdAt", "DESC"]]
+    })
+  }
+  catch(err){
+    return err
+  }
+} 
+
+module.exports = {login, getAllUsers}

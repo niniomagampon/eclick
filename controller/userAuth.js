@@ -1,6 +1,6 @@
 const express = require("express");
 const createService = require("../service/createUser");
-const loginService = require("../service/retrieveUser");
+const retrieveUser = require("../service/retrieveUser");
 const bcrypt = require("bcryptjs");
 const withErrors = require("../utils/withErrors");
 const EJS_INFO = require("../constants/ejs");
@@ -8,7 +8,7 @@ const EJS_INFO = require("../constants/ejs");
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const result = await loginService(email);
+  const result = await retrieveUser.login(email);
 
   if (!result.length) {
     res.render("login", {

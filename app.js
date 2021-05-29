@@ -42,10 +42,6 @@ app.use("/products", productsRoute);
 
 app.use("/admin", adminRoute);
 
-app.get("/servermessage", (req, res) => {
-  res.render("serverMessage");
-});
-
 // Server Starter
 app.listen(port, async () => {
   // await db.sync({ force: true });
