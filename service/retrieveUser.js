@@ -11,9 +11,9 @@ module.exports = async (email) => {
 
     return accountData
 
-  } catch {
+  } catch(err) {
 
-    return false;
+    return err;
 
   }
 };

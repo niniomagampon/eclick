@@ -49,7 +49,7 @@ const login = async (req, res) => {
 const register = async (req, res) => {
   const { name, email, mobile, password } = req.body;
 
-  const result = await createService(name, email, mobile, password);
+  const result = await createService(name, email, mobile, password , "customer");
 
   if (typeof result === "boolean" && result === true) {
     res.render("register", {
