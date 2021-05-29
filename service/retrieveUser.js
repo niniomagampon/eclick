@@ -1,6 +1,6 @@
 const Account = require("../models/Account");
 
-module.exports = async (email, password) => {
+module.exports = async (email) => {
 
   try {
     const accountData =  await Account.findAll({
@@ -11,8 +11,9 @@ module.exports = async (email, password) => {
 
     return accountData
 
-  } catch (err) {
-    console.log(err);
+  } catch {
+
     return false;
+
   }
 };

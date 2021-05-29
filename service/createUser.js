@@ -7,7 +7,9 @@ module.exports = async (name, email, mobile, password) => {
 
   try {
     await Account.create({name, email, mobile, password : hashedPass});
+    
     return true;
+
   } catch (err) {
     console.log(err);
     return false;

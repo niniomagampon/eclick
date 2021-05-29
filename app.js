@@ -30,6 +30,10 @@ app.use("/cart", cartRoute);
 
 app.use("/products", productsRoute);
 
+app.get("/servermessage", (req, res) =>{
+  res.render("serverMessage")
+})
+
 // Server Starter
 
 app.listen(port, () => {

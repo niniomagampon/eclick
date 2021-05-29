@@ -29,20 +29,20 @@
                 </tr>
             </thead>
             <tbody class="text-secondary">
-                <% for(var i = 0; i < ejsProducts.length; i++){%>
+                <% for(var i = 0; i < ejsOrders.length; i++){%>
                     
                 <!-- status change class -->
-                <% var statusClass = ejsProducts[i].orderStatus === "Shipping"? "bg-warning": (ejsProducts[i].orderStatus === "Cancelled"? "bg-danger" : "bg-success") %>
-                <% var editBtn = ejsProducts[i].orderStatus === "Shipping"? "d-inline-block": "d-none" %>
+                <% var statusClass = ejsOrders[i].orderStatus === "Shipping"? "bg-warning": (ejsProducts[i].orderStatus === "Cancelled"? "bg-danger" : "bg-success") %>
+                <% var editBtn = ejsOrders[i].orderStatus === "Shipping"? "d-inline-block": "d-none" %>
                 
                 <!-- TABLE BODY -->
                 <tr class="text-center align-middle">
-                    <td><a href=""><%= ejsProducts[i].productName%></a></td>
+                    <td><a href=""><%= ejsOrders[i].productName%></a></td>
                     <td class="product-img"><img src= "../img/products/<%= ejsProducts[i].productImage %>" alt=""></td>
-                    <td><%= ejsProducts[i].orderQuantity%> pc(s)</td>
-                    <td class="order-price text-success hideonmobile">$<%= ejsProducts[i].orderPrice %></td>
-                    <td class="payment-method hideonmobile"><%= ejsProducts[i].paymentMethod %></td>
-                    <td><p class="<%= statusClass %> p-1 text-light rounded"><%= ejsProducts[i].orderStatus %></p></td>
+                    <td><%= ejsOrders[i].orderQuantity%> pc(s)</td>
+                    <td class="order-price text-success hideonmobile">$<%= ejsOrders[i].orderPrice %></td>
+                    <td class="payment-method hideonmobile"><%= ejsOrders[i].paymentMethod %></td>
+                    <td><p class="<%= statusClass %> p-1 text-light rounded"><%= ejsOrders[i].orderStatus %></p></td>
                     <td>
                         <button class="btn btn-outline-primary me-2">Details</button>
                         <button class="btn btn-outline-danger <%= editBtn %>">Edit</button>
