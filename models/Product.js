@@ -1,7 +1,7 @@
 const sequelize = require("../confgis/database")
 const { Model, DataTypes } = require("sequalize")
 
-class Product extends model { }
+class Product extends Model { }
 
 Product.init({
     name: {
@@ -23,7 +23,7 @@ Product.init({
                 msg: "Description is required"
             }
         }
-    }
+    },
 
     category: {
         type: Datatypes.STRING,
@@ -45,7 +45,7 @@ Product.init({
                 msg: "Product Name is required"
             }
         }
-    }
+    },
 
     price: {
         type: DataTypes.STRING,
@@ -56,6 +56,11 @@ Product.init({
             }
         }
     }
-})
+}, {
+    sequelize,
+    modelName: 'products',
+    timestamps: true,
+    paranoid: true,
+  })
 
 module.exports = Product;
