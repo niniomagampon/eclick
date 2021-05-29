@@ -64,8 +64,9 @@ const register = async (req, res) => {
     });
     console.log("New user Created");
   } else {
+    console.log(result)
     res.locals.errors = withErrors(result);
-    res.locals.oldValue = { name, email, mobile };
+    res.locals.oldValue = { name, email, mobile, password };
     res.render("register", { ...EJS_INFO });
   }
 };
