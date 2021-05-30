@@ -2,12 +2,12 @@ const { Product, Category } = require("../models");
 const deleteFile = require("../utils/deleteFile");
 const { join } = require("path");
 
-const all = async () => {
+const all = async (column = "createdAt", sort = "DESC", paranoid = "false") => {
   try {
     return await Product.findAll({
-      paranoid: false,
+      paranoid,
       include: [Category],
-      order: [["createdAt", "DESC"]],
+      order: [[column, sort]],
     });
   } catch (err) {
     return err;
