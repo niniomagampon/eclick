@@ -20,9 +20,9 @@ CREATE TABLE products(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL ,
     description VARCHAR(255) NOT NULL,
-    category VARCHAR(255) NOT NULL,
-    image VARCHAR(255) NOT NULL,
-    price INT NOT NULL,
+    qty VARCHAR(255) NOT NULL,
+    image INT NOT NULL,
+    price DOUBLE NOT NULL,
     createdAt DATETIME,
     updatedAt DATETIME,
     deletedAT DATETIME

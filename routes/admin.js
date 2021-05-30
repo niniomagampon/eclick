@@ -34,8 +34,14 @@ adminRoute.get("/users/create", (req, res) => {
 });
 
 adminRoute.post("/users/create", Account.add);
+adminRoute.get("/users/delete/:id", Account.remove)
+adminRoute.get("/users/edit/:id", Account.edit);
+adminRoute.post("/users/edit", Account.update);
+adminRoute.get("/users/restore/:id", Account.restore)
 
 /** End of Users Endpoint */
+
+// Products Endpoint 
 adminRoute.get("/products", Product.index);
 adminRoute.get("/products/create", Product.add);
 adminRoute.post(
@@ -47,5 +53,6 @@ adminRoute.get("/products/delete/:id", Product.remove);
 adminRoute.get("/products/restore/:id", Product.restore);
 adminRoute.get("/products/edit/:id", Product.edit);
 adminRoute.post("/products/edit", fileUpload.single("image"), Product.update);
+/** End of Products Endpoint */
 
 module.exports = adminRoute;

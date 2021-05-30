@@ -3,39 +3,97 @@ const accountService = require("../service/account.service");
 const bcrypt = require("bcryptjs");
 const withErrors = require("../utils/withErrors");
 const EJS_INFO = require("../constants/ejs");
+const clearSession = require("../utils/clearSession");
 
 // ADMIN 
-const index = async (req, res) =>{
-    const users = await accountService.getAllUsers();
-
-    if(users){
-        res.render("admin/users/index",{
-            users
-        })
-    }
-    else{
-        console.log("error")
-    }
+const index = async (req, res) => {
+  const users = await accountService.getAllUsers();
+  clearSession(req);
+  if (users) {
+    res.render("admin/users/index", {
+      users
+    })
+  }
+  else {
+    console.log("error")
+  }
 }
 
-const add = async (req, res)=>{
+const add = async (req, res) => {
 
-    const {name,email,mobile,password} = req.body
+  const { name, email, mobile, password } = req.body
 
-    const user = await accountService.register(name ,email ,mobile ,password, 'staff');
+  const user = await accountService.register(name, email, mobile, password, 'staff');
 
-    const users = await accountService.getAllUsers();
+  const users = await accountService.getAllUsers();
 
-    if (typeof user === "boolean" && user === true){
-        res.render("admin/users/index",{
-            users
-        })
-    }
-    else{
-       return("have error")
-    }
+  if (typeof user === "boolean" && user === true) {
+    res.redirect("/admin/users")
+  }
+  else {
+    return ("have error")
+  }
 }
 
+const remove = async (req, res) => {
+
+  const { id } = req.params
+  await accountService.deleteUser(id);
+  res.redirect("/admin/users")
+
+}
+
+
+const restore = async (req, res) =>{
+  const {id} = req.params
+  await accountService.restore(id);
+  res.redirect("/admin/users")
+}
+
+const edit = async(req, res) =>{
+  const { id } = req.params;
+  const result = await accountService.getOneUser(id);
+  const { isSuccess , errors} = req.session;
+
+  if(result) {
+    res.render("admin/users/edit",{
+      id: result.id,
+      name: result.name,
+      email: result.email,
+      mobile: result.mobile,
+      userType: result.userType,
+      isSuccess,
+      errors,
+    });
+  } else {
+    res.redirect("/admin/users");
+  }
+}
+
+const update = async(req, res) =>{
+  clearSession(req);
+  const {id, name, email, mobile, userType} = req.body
+  const result = await accountService.update(id, name, email, mobile, userType);
+  console.log(result)
+  if(typeof result === "object" && result[0] === 1){
+    req.session.isSuccess = true;
+    res.redirect(`/admin/users/edit/${id}`);
+  }else{
+    req.session.isSuccess = false;
+
+    let errors = [];
+    if ("parent" in result && result.parent.errno === 1062){
+      errors.push("User already exists")
+    }else{
+      for (let error of Object.values(withErrors(result))){
+        errors.push(error)
+      }
+    }
+
+    req.session.errors = errors
+    res.redirect(`/admin/users/edit/${id}`)
+  }
+}
 
 const adminLogin = async (req, res) => {
   const { email, password } = req.body;
@@ -126,4 +184,14 @@ const register = async (req, res) => {
   }
 };
 
-module.exports = { login, register, adminLogin ,index, add};
+module.exports = {
+  login,
+  register,
+  adminLogin,
+  index,
+  add,
+  remove,
+  edit,
+  update,
+  restore
+};
