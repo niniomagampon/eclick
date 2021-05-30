@@ -1,9 +1,11 @@
 const express = require("express");
+const session = require('express-session');
 const accountService = require("../service/account.service");
 const bcrypt = require("bcryptjs");
 const withErrors = require("../utils/withErrors");
 const EJS_INFO = require("../constants/ejs");
 const clearSession = require("../utils/clearSession");
+const loggedinSession = require("../utils/loginSession")
 
 // ADMIN 
 const index = async (req, res) => {
@@ -121,7 +123,9 @@ const adminLogin = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const result = await accountService.login(email);
+   const result = await accountService.login(email);
+
+   loggedinSession(req)
 
   if (!result.length) {
     res.render("login", {
@@ -137,7 +141,10 @@ const login = async (req, res) => {
 
   if (result) {
     const [data] = result;
-
+    
+    req.session.isLoggedIn = undefined;
+    req.session.username = data.name;
+    console.log(data.name)
     const match = await bcrypt.compare(password, data.password);
 
     if (match) {

@@ -2,7 +2,7 @@ const express = require("express");
 const ejs = require("ejs");
 const cartRoute = require("./routes/cart");
 const productsRoute = require("./routes/products");
-const userRoute = require("./routes/user");
+const customerRoute = require("./routes/customer");
 const session = require("express-session");
 
 // Database
@@ -35,7 +35,7 @@ app.use(
 
 // Route
 // Login Route
-app.use("/", userRoute);
+app.use("/", customerRoute);
 
 app.use("/cart", cartRoute);
 
