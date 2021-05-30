@@ -1,9 +1,9 @@
 const express = require("express")
 const userRoute = express.Router()
-const userAuth = require("../controller/userAuth")
+const accountController = require("../controller/account.controller")
 const EJS_INFO = require("../constants/ejs")
 
-userRoute.post("/", userAuth.login)
+userRoute.post("/", accountController.login)
 userRoute.get("/", (req, res) => {
     res.render("login", { ...EJS_INFO })
 })
@@ -11,6 +11,6 @@ userRoute.get("/", (req, res) => {
 userRoute.get("/register", (req, res) => {
     res.render("register", { ...EJS_INFO })
 })
-userRoute.post("/register", userAuth.register)
+userRoute.post("/register", accountController.register)
 
 module.exports = userRoute

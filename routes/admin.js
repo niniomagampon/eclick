@@ -2,8 +2,8 @@ const express = require("express");
 const adminRoute = express.Router();
 const Category = require("../controller/category.controller");
 const Product = require("../controller/productController");
-const { adminLogin } = require("../controller/userAuth");
-const Users = require("../controller/userController");
+const { adminLogin } = require("../controller/account.controller");
+const Users = require("../controller/account.controller");
 const fileUpload = require("../middleware/fileUpload");
 
 adminRoute.get("/", (req, res) => {
@@ -27,6 +27,7 @@ adminRoute.get("/categories/delete/:id", Category.remove);
 adminRoute.get("/categories/restore/:id", Category.restore);
 /** End of Categories Endpoint */
 
+// Users Endpoint 
 adminRoute.get("/users", Users.index);
 adminRoute.get("/users/create", (req, res) => {
   res.render("admin/users/add");
@@ -34,6 +35,7 @@ adminRoute.get("/users/create", (req, res) => {
 
 adminRoute.post("/users/create", Users.add);
 
+/** End of Users Endpoint */
 adminRoute.get("/products", Product.index);
 adminRoute.get("/products/create", Product.add);
 adminRoute.post(
