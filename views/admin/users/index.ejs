@@ -1,0 +1,57 @@
+<%- include('../layout/layout') -%>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Users</li>
+  </ol>
+</nav>
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <div class="d-flex justify-content-between">
+      <h1 class="h3 text-gray-800">User Management</h1>
+      <a href="/admin/users/create"
+        ><button type="button" class="btn btn-warning btn-sm">
+          Add Staff
+        </button></a
+      >
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table
+        class="table table-bordered"
+        id="dataTable"
+        width="100%"
+        cellspacing="0"
+      >
+        <thead>
+          <tr class="text-center">
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>User Type</th>
+            <th>Date Created</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+            <% for (const user of users) { %>
+            <tr>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td><%= user.mobile %></td>
+                <td><%= user.userType %></td>
+                <td><%= user.createdAt %></td>
+                <td class="d-flex">
+                    <button class="btn btn-primary mx-2">Edit</button>
+                    <button class="btn btn-danger">Delete</button>  
+                </td>
+                </tr>
+            <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<%- include('../layout/footer') -%>
