@@ -2,13 +2,8 @@ const express = require("express");
 const adminRoute = express.Router();
 const Category = require("../controller/category.controller");
 const Product = require("../controller/productController");
-<<<<<<< Updated upstream
 const { adminLogin } = require("../controller/account.controller");
-const Users = require("../controller/account.controller");
-=======
-const { adminLogin } = require("../service/account.service");
-const accountService = require("../service/account.service");
->>>>>>> Stashed changes
+const accountService = require("../controller/account.controller");
 const fileUpload = require("../middleware/fileUpload");
 
 adminRoute.get("/", (req, res) => {
@@ -32,12 +27,8 @@ adminRoute.get("/categories/delete/:id", Category.remove);
 adminRoute.get("/categories/restore/:id", Category.restore);
 /** End of Categories Endpoint */
 
-<<<<<<< Updated upstream
 // Users Endpoint 
-adminRoute.get("/users", Users.index);
-=======
 adminRoute.get("/users", accountService.index);
->>>>>>> Stashed changes
 adminRoute.get("/users/create", (req, res) => {
   res.render("admin/users/add");
 });
