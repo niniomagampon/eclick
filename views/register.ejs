@@ -24,25 +24,25 @@
                   <div class=" d-flex flex-column ">
                         <div class="my-3">
                             <input type="text" name="name" placeholder="Your Name" class="<%= (locals.errors) ? 'is-invalid' : '' %>" value="<%= (locals.oldValue) ? oldValue.name : '' %>">
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback text-center">
                                 <%= (locals.errors) ? errors.name : '' %>
                             </div>
                         </div>
                         <div class="mb-3">
                             <input type="text" name="email" placeholder="Your Email" class="<%= (locals.errors) ? 'is-invalid' : '' %>" value="<%= (locals.oldValue) ? oldValue.email : '' %>">
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback text-center">
                                 <%= (locals.errors) ? errors.email : '' %>
                             </div>
                         </div>
                         <div class="mb-3">
                             <input type="text" name="mobile" placeholder="Your Mobile" class="<%= (locals.errors) ? 'is-invalid' : '' %>" value="<%= (locals.oldValue) ? oldValue.mobile : '' %>">
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback text-center">
                                 <%= (locals.errors) ? errors.mobile : '' %>
                             </div>
                         </div>
                         <div>
                             <input type="password" name="password" placeholder="Password" class="<%= (locals.errors) ? 'is-invalid' : '' %>">
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback text-center">
                                 <%= (locals.errors) ? errors.password : '' %>
                             </div>
                         </div>

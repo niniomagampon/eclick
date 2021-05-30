@@ -1,23 +1,97 @@
-const express = require("express")
-const createProduct = require("../service/createProduct")
+const { indexCategory } = require("../service/category.service");
+const productService = require("../service/ProductService");
+const clearSession = require("../utils/clearSession");
+const deleteFile = require("../utils/deleteFile");
 
-const addProduct = async (req, res) =>{
-    const {name, description, category, image, price} = req.body
+const index = async (req, res) => {
+  clearSession(req);
+  const products = await productService.all();
+  res.render("admin/products/index", { products });
+};
 
-    const result = await createProduct(name, description, category, image, price);
+const add = async (req, res) => {
+  const categories = await indexCategory("name", "ASC");
+  res.render("admin/products/add", {
+    categories,
+    imageError: req.session.imageError,
+  });
+};
 
-    if(!result){
-        console.log("Error")
-    }
+const addProduct = async (req, res) => {
+  if (req.session.imageError != undefined) {
+    await deleteFile(req.file.path);
+    res.redirect("/admin/products/create");
+  }
+  const { name, qty, description, categoryId, price } = req.body;
+  const { filename } = req.file;
+  const data = {
+    name,
+    qty,
+    description,
+    categoryId,
+    price,
+    image: `/uploads/${filename}`,
+  };
 
-    if(result){
-        await res.render("serverMessage",{
-            ejsPageTitle : "Product Successfully Added",
-            ejsHeadBackground : "bg-success",
-            ejsMessageTitle : `${name} Added to Products`,
-            ejsServerMessage : `${name} has been added to ${category} with price of Php ${price}`,
-            ejsRedirectPage : `/product/${name}`,
-            ejsMessageButton: "View Product"
-        })
-    }
-}
+  const result = await productService.create(data);
+
+  if (typeof result === "boolean") res.redirect("/admin/products/index");
+};
+
+const edit = async (req, res) => {
+  const { id } = req.params;
+  const result = await productService.getOneProduct(id);
+  const categories = await indexCategory("name", "ASC");
+  const { isSuccess, errors } = req.session;
+  if (result) {
+    res.render("admin/products/edit", {
+      product: result,
+      categories,
+      isSuccess,
+      errors,
+    });
+  } else {
+    res.redirect("/admin/products");
+  }
+};
+
+const update = async (req, res) => {
+  clearSession(req);
+  const { id } = req.body;
+  delete req.body.id;
+  const data = { ...req.body };
+
+  if (typeof req.file !== "undefined") {
+    data.image = `/uploads/${req.file.filename}`;
+  } else {
+    delete data.image;
+  }
+
+  const result = await productService.update(id, data);
+
+  if (typeof result === "object" && result[0] === 1) {
+    req.session.isSuccess = true;
+    res.redirect(`/admin/products/edit/${id}`);
+  } else {
+    req.session.isSuccess = false;
+
+    let errors = [];
+
+    req.session.errors = errors;
+    res.redirect(`/admin/products/edit/${id}`);
+  }
+};
+
+const remove = async (req, res) => {
+  const { id } = req.params;
+  await productService.deleteProduct(id);
+  res.redirect("/admin/products");
+};
+
+const restore = async (req, res) => {
+  const { id } = req.params;
+  await productService.restoreProduct(id);
+  res.redirect("/admin/products");
+};
+
+module.exports = { index, addProduct, add, remove, restore, edit, update };

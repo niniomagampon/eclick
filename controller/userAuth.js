@@ -1,14 +1,36 @@
 const express = require("express");
 const createService = require("../service/createUser");
-const loginService = require("../service/retrieveUser");
+const retrieveUser = require("../service/retrieveUser");
 const bcrypt = require("bcryptjs");
 const withErrors = require("../utils/withErrors");
 const EJS_INFO = require("../constants/ejs");
 
+const adminLogin = async (req, res) => {
+  const { email, password } = req.body;
+  const result = await retrieveUser.login(email);
+
+  if (!result.length) {
+    res.locals.msg = "Invalid email or password.";
+    res.render("admin/login");
+  } else {
+    const [user] = result;
+    const match = await bcrypt.compare(password, user.password);
+
+    if (match) {
+      req.session.user = user;
+      req.session.isLoggedIn = true;
+      res.redirect("/admin");
+    } else {
+      res.locals.msg = "Invalid email or password.";
+      res.render("admin/login");
+    }
+  }
+};
+
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const result = await loginService(email);
+  const result = await retrieveUser.login(email);
 
   if (!result.length) {
     res.render("login", {
@@ -49,7 +71,7 @@ const login = async (req, res) => {
 const register = async (req, res) => {
   const { name, email, mobile, password } = req.body;
 
-  const result = await createService(name, email, mobile, password);
+  const result = await createService(name, email, mobile, password, "customer");
 
   if (typeof result === "boolean" && result === true) {
     res.render("register", {
@@ -64,10 +86,11 @@ const register = async (req, res) => {
     });
     console.log("New user Created");
   } else {
+    console.log(result);
     res.locals.errors = withErrors(result);
-    res.locals.oldValue = { name, email, mobile };
+    res.locals.oldValue = { name, email, mobile, password };
     res.render("register", { ...EJS_INFO });
   }
 };
 
-module.exports = { login, register };
+module.exports = { login, register, adminLogin };

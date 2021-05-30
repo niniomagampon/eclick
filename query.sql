@@ -1,0 +1,29 @@
+CREATE TABLE accounts(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL ,
+    mobile VARCHAR(11) NOT NULL,
+    userType VARCHAR(255) NOT NULL DEFAULT'customer',
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    createdAt DATETIME,
+    updatedAt DATETIME,
+    deletedAT DATETIME
+);
+
+CREATE TABLE category(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL ,
+    slug VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE products(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL ,
+    description VARCHAR(255) NOT NULL,
+    category VARCHAR(255) NOT NULL,
+    image VARCHAR(255) NOT NULL,
+    price INT NOT NULL,
+    createdAt DATETIME,
+    updatedAt DATETIME,
+    deletedAT DATETIME
+);
