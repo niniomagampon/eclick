@@ -28,6 +28,12 @@ Category.init(
     },
   },
   {
+    indexes: [
+      {
+        unique: true,
+        fields: ["name"],
+      },
+    ],
     sequelize,
     modelName: "categories",
     timestamps: true,

@@ -1,10 +1,10 @@
 const Category = require("../models/Category");
 
-const indexCategory = async () => {
+const indexCategory = async (column = "createdAt", sort = "DESC", paranoid = false) => {
   try {
     return await Category.findAll({
-      paranoid: false,
-      order: [["createdAt", "DESC"]],
+      paranoid,
+      order: [[column, sort]],
     });
   } catch (err) {
     return err;

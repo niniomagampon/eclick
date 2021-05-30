@@ -8,6 +8,7 @@ const session = require("express-session");
 // Database
 const db = require("./configs/database");
 const adminRoute = require("./routes/admin");
+const { AUTH } = require("./middleware/auth");
 
 // Test DB
 db.authenticate()
@@ -26,7 +27,7 @@ app.use(
     secret: "my secret",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }
+    cookie: { secure: false },
   })
 );
 
