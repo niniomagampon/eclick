@@ -45,7 +45,7 @@
                     <%= user.userType %>
                   </td>
                   <td>
-                    <%= user.createdAt %>
+                    <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(user.createdAt) %>
                   </td>
                   <td class="">
                     <% if (user.deletedAt == null) {%>
