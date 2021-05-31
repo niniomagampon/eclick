@@ -26,9 +26,7 @@
 
       <form method="POST" action="/admin/users/create">
         <div class="form-group">
-          <label for="userName"
-            > Name <span class="text-danger">*</span></label
-          >
+          <label for="userName"> Name <span class="text-danger">*</span></label>
           <input
             type="text"
             class="form-control"
@@ -37,7 +35,6 @@
             name="name"
             value="<%= (locals.oldValue) ? oldValue.name : '' %>"
           />
-
         </div>
         <div class="form-group">
           <label for="userEmail"
@@ -53,31 +50,39 @@
           />
         </div>
         <div class="form-group">
-            <label for="userMobile"
-              >Mobile <span class="text-danger">*</span></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="userMobile"
-              placeholder="Mobile"
-              name="mobile"
-              value="<%= (locals.oldValue) ? oldValue.mobile : '' %>"
-            />
-          </div>
-          <div class="form-group">
-            <label for="userPassword"
-              >Password <span class="text-danger">*</span></label
-            >
-            <input
-              type="password"
-              class="form-control"
-              id="userPassword"
-              placeholder="Password"
-              name="password"
-              value="<%= (locals.oldValue) ? oldValue.password : '' %>"
-            />
-          </div>
+          <label for="userMobile"
+            >Mobile <span class="text-danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="userMobile"
+            placeholder="Mobile"
+            name="mobile"
+            value="<%= (locals.oldValue) ? oldValue.mobile : '' %>"
+          />
+        </div>
+        <div class="form-group">
+          <label for="userPassword"
+            >Password <span class="text-danger">*</span></label
+          >
+          <input
+            type="password"
+            class="form-control"
+            id="userPassword"
+            placeholder="Password"
+            name="password"
+            value="<%= (locals.oldValue) ? oldValue.password : '' %>"
+          />
+        </div>
+
+        <div class="form-group">
+          <h6>User Type</h6>
+          <input type="radio" id="userStaffID" name="userType" value="Staff" />
+          <label for="userStaffID">Staff</label><br />
+          <input type="radio" id="userAdminID" name="userType" value="Admin" />
+          <label for="userAdminID">Admin</label><br />
+        </div>
         <button type="submit" class="btn btn-primary">Add</button>
       </form>
     </div>

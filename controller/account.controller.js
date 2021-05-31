@@ -23,9 +23,9 @@ const index = async (req, res) => {
 
 const add = async (req, res) => {
 
-  const { name, email, mobile, password } = req.body
+  const { name, email, mobile, password, userType } = req.body
 
-  const user = await accountService.register(name, email, mobile, password, 'staff');
+  const user = await accountService.register(name, email, mobile, password, userType);
 
   const users = await accountService.getAllUsers();
 
