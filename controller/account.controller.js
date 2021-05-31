@@ -125,8 +125,6 @@ const login = async (req, res) => {
 
    const result = await accountService.login(email);
 
-   loggedinSession(req)
-
   if (!result.length) {
     res.render("login", {
       ejsModalDisplay: "block",
@@ -142,7 +140,7 @@ const login = async (req, res) => {
   if (result) {
     const [data] = result;
     
-    req.session.isLoggedIn = undefined;
+    req.session.isLoggedIn = true;
     req.session.username = data.name;
     console.log(data.name)
     const match = await bcrypt.compare(password, data.password);

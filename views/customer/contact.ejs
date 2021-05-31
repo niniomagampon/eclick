@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <%- include('../header'); -%>
+    <div class="page-container p-5 mt-3 d-flex justify-content-center align-items-center">
+        <div class="contact-row row bg-light shadow ">
+            <div class="col-md-6 col-12 p-5 contact-container text-light">
+                <h3 class="my-5">Send Us a Message</h3>
+                <form action="" class="d-flex flex-column contact-form ">
+                    <input type="text" name="name" class="formcontrol" placeholder="NAME" required>
+                    <input type="email" name="email" class="formcontrol" placeholder="EMAIL ADDRESS" required>
+                    <input type="text" name="subject" class="formcontrol" required placeholder="SUBJECT">
+                    <textarea name="message" class="form-control my-3" id="message" cols="30" rows="6" placeholder="ENTER MESSAGE HERE"></textarea>
+                    <button type="submit" class="btn btn-warning text-light m-auto">Send Message</button>
+                </form>
+            </div>
+
+            <div class="col-md-6 col-12 bg-light p-4">
+                <h3 class="my-5">Contact Us</h3>
+                <p>We're open for any suggestion or just to have a chat</p>
+                <div class="contact-list d-flex flex-column align-items-center justify-content-center p-3 my-5">
+                    <div class="contact-item mb-4 w-100 d-flex align-items-start align-items-center">
+                        <div class="icon-holder d-flex align-items-center justify-content-center">
+                            <span class="fa fa-map-marker"></span>
+                        </div>
+                        <div class="icon-info">Address: 198 West 21th Street, Suite 721 New York NY 10016</div>
+                    </div>
+                    <div class="contact-item mb-4 w-100 d-flex align-items-start align-items-center">
+                        <div class="icon-holder d-flex align-items-center justify-content-center">
+                            <span class="fa fa-phone"></span>
+                        </div>
+                        <div class="icon-info">Phone: + 1235 2355 98</div>
+                    </div>
+                    <div class="contact-item mb-4 w-100 d-flex align-items-start align-items-center">
+                        <div class="icon-holder d-flex align-items-center justify-content-center">
+                            <span class="fa fa-paper-plane"></span>
+                        </div>
+                        <div class="icon-info">Email: info@yoursite.com</div>
+                    </div>
+                    <div class="contact-item mb-4 w-100 d-flex align-items-start align-items-center">
+                        <div class="icon-holder d-flex align-items-center justify-content-center">
+                            <span class="fa fa-facebook"></span>
+                        </div>
+                        <div class="icon-info">Facebook Page</div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+</body>
+</html>

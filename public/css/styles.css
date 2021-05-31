@@ -47,7 +47,7 @@ h1,h2,h3,h4,h5,h6,p{
     padding: 0px 20px;
 }
 
-input[type=text],input[type=password]{
+.loginform input[type=text],input[type=password]{
     font-family: 'Poppins', sans-serif;
     line-height: 1.5;
     color: #666;
@@ -75,9 +75,10 @@ input:focus{
  cursor: pointer;
 }
 
-.iconSettings img:hover,.searchbar img:hover{
-    width: 23px;
-    height: 23px;
+.iconSettings i:hover,.searchbar i:hover{
+    color: white!important;
+    position: relative;
+    top: -3px;
 }
 
 .navbar{
@@ -91,10 +92,40 @@ input:focus{
     border-radius: 15px;
 }
 /* Home Page */
-.home-page {
-    height: calc(100vh - 56px);
-    padding: 0;
+.page-container {
+    height: calc(100vh - 150px);
 }
+
+/* Contact */
+.contact-row{
+    width: 900px;
+}
+
+.contact-container{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.74),rgba(0, 0, 0, 0.719)), url(../img/contactus.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.formcontrol{
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: transparent;
+    margin: 15px 0px;
+}
+
+.formcontrol:focus{
+    color: white!important;
+}
+
+.icon-holder{
+    padding: 15px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    margin: 0px 15px;
+}
+
 /* Cart Orders */
 
 
@@ -145,6 +176,9 @@ input:focus{
     .searchbar{
         width: 300px;
         margin: auto;
+    }
+    .page-container{
+        height: auto;
     }
 }
 

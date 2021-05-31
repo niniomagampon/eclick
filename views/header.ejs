@@ -1,4 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-light p-3 shadow p-3 bg-body rounded">
+<link
+href="/fontawesome-free/css/all.min.css"
+rel="stylesheet"
+type="text/css"
+/>
+<div class="top-nav bg-warning d-flex align-items-center justify-content-center p-2">
+  <p class="fw-bold text-secondary">We Ship NATIONWIDE. Free shipping for orders over $99.</p>
+</div>
+<nav class="navbar navbar-expand-lg navbar-dark p-2 shadow bg-dark w-100">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">EClick</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +34,7 @@
                 </ul>
             </li>
             <li class="nav-item mx-2">
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" href="/contact">Contact</a>
             </li>
             <li class="nav-item mx-2">
               <a class="nav-link" href="#">Settings</a>
@@ -38,17 +46,18 @@
           </ul>
           <form class="d-flex searchbar">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <img src="../img/search.svg" alt="">
+            <a href="#"><i class="text-light fas fa-search fa-2x hideonmobile" title="Wishlist"></i></a>
           </form>
+          <span class="text-light ms-4">Hello</span>
           <div class="userDisplay ms-3 dropdown ">
-              <h6 class="m-0 hideonmobile  dropdown-toggle text-primary " id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Hello, <%= ejsName %></h6>
+              <h6 class="m-0 hideonmobile  dropdown-toggle text-warning " id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><%= ejsName %></h6>
               <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                <li><a class="dropdown-item" href="#">Logout</a></li>
+                <li><a class="dropdown-item" href="/logout">Logout</a></li>
               </ul>
           </div>
-          <div class="iconSettings d-flex ms-3 ">
-            <a href="#"><img src="../img/heart.svg" alt="" class="hideonmobile"></a>
-            <a href="/cart/orders"><img src="../img/shopping-bag.svg" alt="" class="hideonmobile"></a>
+          <div class="iconSettings d-flex ms-3 py-3">
+            <a href="#"><i class="text-danger fas fa-heart fa-2x hideonmobile px-2 " title="Wishlist"></i></a>
+            <a href="/cart/orders"><i class=" text-info fa-2x fas fa-shopping-cart hideonmobile" title="Shopping Cart"></i></a>
         </div>
         </div>
       </div>
