@@ -2,8 +2,8 @@ const express = require("express");
 const adminRoute = express.Router();
 const Category = require("../controller/category.controller");
 const Product = require("../controller/productController");
-const { adminLogin } = require("../controller/userAuth");
-const Users = require("../controller/userController");
+const { adminLogin } = require("../controller/account.controller");
+const Account = require("../controller/account.controller");
 const fileUpload = require("../middleware/fileUpload");
 
 adminRoute.get("/", (req, res) => {
@@ -27,13 +27,21 @@ adminRoute.get("/categories/delete/:id", Category.remove);
 adminRoute.get("/categories/restore/:id", Category.restore);
 /** End of Categories Endpoint */
 
-adminRoute.get("/users", Users.index);
+// Users Endpoint 
+adminRoute.get("/users", Account.index);
 adminRoute.get("/users/create", (req, res) => {
   res.render("admin/users/add");
 });
 
-adminRoute.post("/users/create", Users.add);
+adminRoute.post("/users/create", Account.add);
+adminRoute.get("/users/delete/:id", Account.remove)
+adminRoute.get("/users/edit/:id", Account.edit);
+adminRoute.post("/users/edit", Account.update);
+adminRoute.get("/users/restore/:id", Account.restore)
 
+/** End of Users Endpoint */
+
+// Products Endpoint 
 adminRoute.get("/products", Product.index);
 adminRoute.get("/products/create", Product.add);
 adminRoute.post(
@@ -45,5 +53,6 @@ adminRoute.get("/products/delete/:id", Product.remove);
 adminRoute.get("/products/restore/:id", Product.restore);
 adminRoute.get("/products/edit/:id", Product.edit);
 adminRoute.post("/products/edit", fileUpload.single("image"), Product.update);
+/** End of Products Endpoint */
 
 module.exports = adminRoute;

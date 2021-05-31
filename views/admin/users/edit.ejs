@@ -3,7 +3,7 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="/admin/users">Users</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Create</li>
+    <li class="breadcrumb-item active" aria-current="page">Update</li>
   </ol>
 </nav>
 
@@ -12,7 +12,7 @@
     <div class="card-body">
       <% if (typeof isSuccess != 'undefined' && isSuccess) { %>
       <div class="alert alert-primary" role="alert">
-        Successfully added user.
+        Successfully updated account.
       </div>
       <% } else if (typeof isSuccess != 'undefined' && !isSuccess) { %>
       <div class="alert alert-danger" role="alert">
@@ -24,16 +24,19 @@
       </div>
       <% } %>
 
-      <form method="POST" action="/admin/users/create">
+      <form method="POST" action="/admin/users/edit">
         <div class="form-group">
-          <label for="userName"> Name <span class="text-danger">*</span></label>
+          <input type="hidden" value="<%= id %>" name="id" />
+          <label for="userName"
+            >Account Name <span class="text-danger">*</span></label
+          >
           <input
             type="text"
             class="form-control"
             id="userName"
-            placeholder="User Name"
+            placeholder="Name"
             name="name"
-            value="<%= (locals.oldValue) ? oldValue.name : '' %>"
+            value="<%= name %>"
           />
         </div>
         <div class="form-group">
@@ -41,12 +44,12 @@
             >Email <span class="text-danger">*</span></label
           >
           <input
-            type="text"
+            type="email"
             class="form-control"
             id="userEmail"
             placeholder="Email Address"
             name="email"
-            value="<%= (locals.oldValue) ? oldValue.email : '' %>"
+            value="<%= email %>"
           />
         </div>
         <div class="form-group">
@@ -54,36 +57,28 @@
             >Mobile <span class="text-danger">*</span></label
           >
           <input
-            type="text"
+            type="mobile"
             class="form-control"
             id="userMobile"
-            placeholder="Mobile"
+            placeholder="Mobile Number"
             name="mobile"
-            value="<%= (locals.oldValue) ? oldValue.mobile : '' %>"
+            value="<%= mobile %>"
           />
         </div>
         <div class="form-group">
-          <label for="userPassword"
-            >Password <span class="text-danger">*</span></label
+          <label for="userType"
+            >User Type <span class="text-danger">*</span></label
           >
           <input
-            type="password"
+            type="userType"
             class="form-control"
-            id="userPassword"
-            placeholder="Password"
-            name="password"
-            value="<%= (locals.oldValue) ? oldValue.password : '' %>"
+            id="userType"
+            placeholder="User Type"
+            name="userType"
+            value="<%= userType %>"
           />
         </div>
-
-        <div class="form-group">
-          <h6>User Type</h6>
-          <input type="radio" id="userStaffID" name="userType" value="Staff" />
-          <label for="userStaffID">Staff</label><br />
-          <input type="radio" id="userAdminID" name="userType" value="Admin" />
-          <label for="userAdminID">Admin</label><br />
-        </div>
-        <button type="submit" class="btn btn-primary">Add</button>
+        <button type="submit" class="btn btn-primary">Update</button>
       </form>
     </div>
   </div>

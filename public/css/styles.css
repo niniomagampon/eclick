@@ -90,7 +90,11 @@ input:focus{
     background-color: var(--primary);
     border-radius: 15px;
 }
-
+/* Home Page */
+.home-page {
+    height: calc(100vh - 56px);
+    padding: 0;
+}
 /* Cart Orders */
 
 
