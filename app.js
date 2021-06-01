@@ -12,8 +12,8 @@ const { AUTH } = require("./middleware/auth");
 
 // Test DB
 db.authenticate()
-  .then(() => console.log("Database connected..."))
-  .catch((err) => console.log("Error: " + err));
+	.then(() => console.log("Database connected..."))
+	.catch((err) => console.log("Error: " + err));
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -23,12 +23,12 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(
-  session({
-    secret: "my secret",
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false },
-  })
+	session({
+		secret: "my secret",
+		resave: false,
+		saveUninitialized: false,
+		cookie: { secure: false },
+	})
 );
 
 // Database Connection
@@ -41,10 +41,10 @@ app.use("/cart", cartRoute);
 
 app.use("/products", productsRoute);
 
-app.use("/admin", adminRoute);
+app.use("/admin", AUTH, adminRoute);
 
 // Server Starter
 app.listen(port, async () => {
-  // await db.sync({ force: true });
-  console.log(`Server Started on port : ${port}`);
+	// await db.sync({ force: true });
+	console.log(`Server Started on port : ${port}`);
 });
