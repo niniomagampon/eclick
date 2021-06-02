@@ -11,9 +11,9 @@
 <body>
     <%- include('../header'); -%>
     <div class="container-fluid px-3 px-lg-5 py-4">
-        <h3 class="text-center"><%= ejsCategory %></h3>
+        <h3 class="text-center my-4"><%= ejsCategory %></h3>
         <h6 class=" mb-3">Choose Category</h6>
-        <div class="col-md-4 d-flex">
+        <div class="col-md-4 d-flex mb-5">
             <select id="productCategory" class="rounded ps-2" name="categorySlug" value="test"  onchange="changeVal()">
               <option value="all">All</option>
               <% for (const category of categories) { %>
@@ -39,22 +39,7 @@
             <% }%>
         </div>
     </div>
-    <script type="text/javascript">
-    let catValue = ""
-
-    function changeVal(){
-      catValue = document.querySelector("#productCategory").value
-    }
-
-    function gotoCat(){
-      if(catValue === "all" || catValue === ""){
-        window.location = `/products/all`
-      }
-      else{
-      window.location = `/products/category/${catValue}`
-      }
-    }   
-    </script>
+    <script type="text/javascript" src="../../js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
 </body>
