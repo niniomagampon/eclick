@@ -35,7 +35,7 @@ const addProduct = async (req, res) => {
 
   const result = await productService.create(data);
 
-  if (typeof result === "boolean") res.redirect("/admin/products/index");
+  if (typeof result === "boolean") res.redirect("/admin/products");
 };
 
 const edit = async (req, res) => {
@@ -94,4 +94,23 @@ const restore = async (req, res) => {
   res.redirect("/admin/products");
 };
 
-module.exports = { index, addProduct, add, remove, restore, edit, update };
+
+// Customer SIDE
+
+const getAll = async (req, res) =>{
+  const categories = await indexCategory("name", "ASC");
+
+  const products = await productService.all();
+
+  
+
+  res.render("product/index",{
+    ejsName : req.session.username,
+    ejsProducts : products,
+    categories
+  })
+  
+}
+
+
+module.exports = { index, addProduct, add, remove, restore, edit, update, getAll };

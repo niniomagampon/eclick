@@ -68,15 +68,13 @@ input:focus{
 }
 
 /* Navigation Bar */
-.iconSettings img,.searchbar img{
- width: 20px;
- height: 15px;
- margin: 5px;
- cursor: pointer;
+
+.top-nav{
+    font-size: 0.8rem;
 }
 
 .iconSettings i:hover,.searchbar i:hover{
-    color: white!important;
+    color: orange!important;
     position: relative;
     top: -3px;
 }
@@ -93,12 +91,12 @@ input:focus{
 }
 /* Home Page */
 .page-container {
-    height: calc(100vh - 150px);
+    height: calc(100vh - 100px);
 }
 
 /* Contact */
 .contact-row{
-    width: 900px;
+     height: 530px;
 }
 
 .contact-container{
@@ -143,12 +141,21 @@ input:focus{
 
 /* LOGIN Page */
 
-/* sm to md device */
-@media screen and (max-width: 1240px){
+/* SMALL device */
+@media screen and (max-width: 766px){
+    .contact-row{
+        margin-top: 0px !important;
+    }
 
+    .top-nav{
+        font-size: 0.65rem;
+    }
 }
 
+/* SMALL to MEDIUM Device */
 @media screen and (max-width: 993px){
+
+    /* LOGIN PAGE */
     .login-container{
         height: 100vh;
         width: 100vw;
@@ -157,11 +164,6 @@ input:focus{
 
     .hideonmobile{
         display: none;
-    }
-
-    .product-img{
-        width: 200px;
-        height: 150px;
     }
 
     .nav-item:hover{
@@ -173,13 +175,16 @@ input:focus{
         text-align: center;
     }
 
+    .product-img{
+        width: 200px;
+        height: 150px;
+    }
+
     .searchbar{
         width: 300px;
         margin: auto;
     }
-    .page-container{
-        height: auto;
-    }
+
 }
 
 @media screen and (min-width: 992px) {

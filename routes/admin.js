@@ -1,7 +1,7 @@
 const express = require("express");
 const adminRoute = express.Router();
 const Category = require("../controller/category.controller");
-const Product = require("../controller/productController");
+const Product = require("../controller/product.controller");
 const { adminLogin } = require("../controller/account.controller");
 const Account = require("../controller/account.controller");
 const fileUpload = require("../middleware/fileUpload");

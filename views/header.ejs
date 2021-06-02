@@ -6,9 +6,11 @@ type="text/css"
 <div class="top-nav bg-warning d-flex align-items-center justify-content-center p-2">
   <p class="fw-bold text-secondary">We Ship NATIONWIDE. Free shipping for orders over $99.</p>
 </div>
-<nav class="navbar navbar-expand-lg navbar-dark p-2 shadow bg-dark w-100">
+<nav class="navbar navbar-expand-lg navbar-light shadow bg-white w-100">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">EClick</a>
+        <a class="navbar-brand" href="#">
+          <img src="../logo.png" alt="">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -23,15 +25,8 @@ type="text/css"
             <li class="nav-item mx-2">
                 <a class="nav-link hideonpc" href="#">Wishlist</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle mx-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Products
-                </a>
-                <ul class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="/products/CannedGoods">Goods</a></li>
-                  <li><a class="dropdown-item" href="#">Beverages</a></li>
-                  <li><a class="dropdown-item" href="#">Produce</a></li>
-                </ul>
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="/products/all">Products</a>
             </li>
             <li class="nav-item mx-2">
                 <a class="nav-link" href="/contact">Contact</a>
@@ -46,18 +41,18 @@ type="text/css"
           </ul>
           <form class="d-flex searchbar">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <a href="#"><i class="text-light fas fa-search fa-2x hideonmobile" title="Wishlist"></i></a>
+            <a href="#"><i class="text-secondary fas fa-search fa-2x hideonmobile" title="Wishlist"></i></a>
           </form>
-          <span class="text-light ms-4">Hello</span>
-          <div class="userDisplay ms-3 dropdown ">
-              <h6 class="m-0 hideonmobile  dropdown-toggle text-warning " id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><%= ejsName %></h6>
+          <span class="text-secondary ms-4 hideonmobile">Hello</span>
+          <div class="userDisplay ms-3 dropdown hideonmobile">
+              <h6 class="m-0   dropdown-toggle text-info " id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><%= ejsName %></h6>
               <ul class="dropdown-menu" aria-labelledby="userDropdown">
                 <li><a class="dropdown-item" href="/logout">Logout</a></li>
               </ul>
           </div>
-          <div class="iconSettings d-flex ms-3 py-3">
-            <a href="#"><i class="text-danger fas fa-heart fa-2x hideonmobile px-2 " title="Wishlist"></i></a>
-            <a href="/cart/orders"><i class=" text-info fa-2x fas fa-shopping-cart hideonmobile" title="Shopping Cart"></i></a>
+          <div class="iconSettings d-flex ms-3">
+            <a href="#" class="hideonmobile"><i class="text-danger fas fa-heart " title="Wishlist"></i></a>
+            <a href="/cart/orders" class="hideonmobile"><i class=" text-secondary fas fa-shopping-cart hideonmobile mx-3" title="Shopping Cart"></i></a>
         </div>
         </div>
       </div>
