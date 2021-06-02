@@ -128,8 +128,7 @@ input:focus{
 
 
 .product-img{
-    width: 250px;
-    height: 200px;
+object-fit: cover;
 }
 
 .product-img img{
@@ -173,11 +172,6 @@ input:focus{
 
     #navbarSupportedContent{
         text-align: center;
-    }
-
-    .product-img{
-        width: 200px;
-        height: 150px;
     }
 
     .searchbar{

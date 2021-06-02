@@ -1,4 +1,5 @@
-const { indexCategory } = require("../service/category.service");
+const e = require("express");
+const { indexCategory, getOneCategoryParams } = require("../service/category.service");
 const productService = require("../service/ProductService");
 const clearSession = require("../utils/clearSession");
 const deleteFile = require("../utils/deleteFile");
@@ -101,16 +102,52 @@ const getAll = async (req, res) =>{
   const categories = await indexCategory("name", "ASC");
 
   const products = await productService.all();
+  // if(req.session.isLoggedIn){
+    res.render("product/index",{
 
-  
+      ejsName : req.session.username,
+      ejsProducts : products,
+      categories,
+      ejsCategory : "All Products"
+    })
+  // }else{
+  //   res.redirect("/")
+  // }
+}
 
-  res.render("product/index",{
-    ejsName : req.session.username,
-    ejsProducts : products,
-    categories
-  })
-  
+const getPerCategory = async (req, res) =>{
+  const {slug} = req.params
+  const categories = await indexCategory("name", "ASC");
+
+  const result = await productService.perCategoryProd(slug)
+
+
+  const categoryName = await getOneCategoryParams(slug)
+
+  console.log(categoryName)
+
+  // if(req.session.isLoggedIn){
+    res.render("product/index",{
+
+      ejsName : req.session.username,
+      ejsProducts : result,
+      categories,
+      ejsCategory : categoryName.name
+
+    })
+  // }else{
+  //   res.redirect("/")
+  // }
 }
 
 
-module.exports = { index, addProduct, add, remove, restore, edit, update, getAll };
+module.exports = { index, 
+  addProduct, 
+  add, 
+  remove, 
+  restore, 
+  edit, 
+  update, 
+  getAll,
+  getPerCategory
+};

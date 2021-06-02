@@ -11,19 +11,17 @@
 <body>
     <%- include('../header'); -%>
     <div class="container-fluid px-3 px-lg-5 py-4">
-        <h3 class="text-center"><%= ejsCategory %></h3>
         <h6 class=" mb-3">Choose Category</h6>
         <div class="col-md-4 d-flex">
-            <select id="productCategory" class="rounded ps-2" name="categorySlug" value="test"  onchange="changeVal()">
+            <select id="productCategory" class="rounded ps-2" name="categorySlug" value="test"  onchange="goToCat()">
               <option value="all">All</option>
               <% for (const category of categories) { %>
               <option class="text-center" value="<%= category.slug %>"><%= category.name %></option>
               
               <% } %>
             </select>
-            
-            <button class="btn btn-warning mx-3" onclick="gotoCat()" >Submit</button>
         </div>
+
         <div class="row text-center mt-3">
             <% for(var i = 0; i < ejsProducts.length; i++){%>
             <div class="col-xl-2 col-md-3 col-6">
@@ -40,20 +38,16 @@
         </div>
     </div>
     <script type="text/javascript">
-    let catValue = ""
-
-    function changeVal(){
-      catValue = document.querySelector("#productCategory").value
-    }
-
-    function gotoCat(){
-      if(catValue === "all" || catValue === ""){
+    function goToCat(){
+      let catValue = document.querySelector("#productCategory").value
+      if(catValue === "all"){
         window.location = `/products/all`
       }
       else{
       window.location = `/products/category/${catValue}`
       }
-    }   
+    }
+      
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 

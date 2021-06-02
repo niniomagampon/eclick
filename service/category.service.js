@@ -29,6 +29,14 @@ const getOneCategory = async (id) => {
   }
 };
 
+const getOneCategoryParams = async (slug) => {
+  try {
+    return await Category.findOne({ where: { slug } });
+  } catch (err) {
+    return err;
+  }
+};
+
 const updateCategory = async (id, name, slug) => {
   try {
     return await Category.update({ name, slug }, { where: { id } });
@@ -68,4 +76,5 @@ module.exports = {
   restoreCateogry,
   getOneCategory,
   updateCategory,
+  getOneCategoryParams
 };

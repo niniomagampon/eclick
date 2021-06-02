@@ -1,6 +1,7 @@
 const { Product, Category } = require("../models");
 const deleteFile = require("../utils/deleteFile");
 const { join } = require("path");
+// const { where } = require("sequelize/types");
 
 const all = async (column = "createdAt", sort = "DESC", paranoid = "false") => {
   try {
@@ -68,6 +69,21 @@ const restoreProduct = async (id) => {
   }
 };
 
+const perCategoryProd = async (slug) =>{
+  try{
+    return await Product.findAll({
+      include : {
+        model : Category,
+        where : {
+          slug
+        }
+      }
+    })
+  }catch(err){
+    return err
+  }
+}
+
 module.exports = {
   create,
   all,
@@ -75,4 +91,5 @@ module.exports = {
   restoreProduct,
   getOneProduct,
   update,
+  perCategoryProd
 };
