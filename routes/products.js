@@ -1,12 +1,12 @@
-const express = require("express")
-const productsRoute = express.Router()
-const productsController = require("../controller/product.controller")
-const EJS_INFO = require("../constants/ejs")
+const express = require("express");
+const productsRoute = express.Router();
+const productsController = require("../controller/product.controller");
+const EJS_INFO = require("../constants/ejs");
 
+productsRoute.get("/all", productsController.getAll);
 
-productsRoute.get("/all", productsController.getAll)
+productsRoute.get("/category/:slug", productsController.getPerCategory);
 
-productsRoute.get("/category/:slug", productsController.getPerCategory )
+productsRoute.get("/:id", productsController.getProduct);
 
-
-module.exports = productsRoute
+module.exports = productsRoute;

@@ -21,6 +21,7 @@ const port = process.env.PORT || 3000;
 // Middleware
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static("public"));
 app.use(
 	session({
@@ -41,10 +42,10 @@ app.use("/cart", cartRoute);
 
 app.use("/products", productsRoute);
 
-app.use("/admin", AUTH, adminRoute);
+app.use("/admin", adminRoute);
 
 // Server Starter
 app.listen(port, async () => {
-	// await db.sync({ force: true });
+	await db.sync();
 	console.log(`Server Started on port : ${port}`);
 });
