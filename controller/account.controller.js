@@ -7,7 +7,7 @@ const EJS_INFO = require("../constants/ejs");
 const clearSession = require("../utils/clearSession");
 const loggedinSession = require("../utils/loginSession")
 
-// ADMIN 
+// ADMIN SIDE
 const index = async (req, res) => {
   const users = await accountService.getAllUsers();
   clearSession(req);
@@ -119,7 +119,7 @@ const adminLogin = async (req, res) => {
   }
 };
 
-// CUSTOMER
+// CUSTOMER SIDE
 const login = async (req, res) => {
   const { email, password } = req.body;
 

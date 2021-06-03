@@ -1,9 +1,17 @@
 const e = require("express");
-const { indexCategory, getOneCategoryParams } = require("../service/category.service");
 const productService = require("../service/ProductService");
 const clearSession = require("../utils/clearSession");
 const deleteFile = require("../utils/deleteFile");
+const {
+  indexCategory,
+  getOneCategoryParams,
+} = require("../service/category.service");
 
+let userName = "Guest"
+let logInOut = "Login"
+
+
+// ADMIN Side
 const index = async (req, res) => {
   clearSession(req);
   const products = await productService.all();
@@ -95,59 +103,60 @@ const restore = async (req, res) => {
   res.redirect("/admin/products");
 };
 
-
 // Customer SIDE
 
-const getAll = async (req, res) =>{
+const getAll = async (req, res) => {
+
+  if (req.session.isLoggedIn) {
+    userName = req.session.username;
+    logInOut = "Logout"
+  }
   const categories = await indexCategory("name", "ASC");
 
   const products = await productService.all();
-  // if(req.session.isLoggedIn){
-    res.render("product/index",{
 
-      ejsName : req.session.username,
-      ejsProducts : products,
-      categories,
-      ejsCategory : "All Products"
-    })
-  // }else{
-  //   res.redirect("/")
-  // }
-}
+  res.render("product/index", {
+    userName,
+    logInOut,
+    products,
+    categories,
+    ejsCategory: "All Products",
+  });
+};
 
-const getPerCategory = async (req, res) =>{
-  const {slug} = req.params
+const getPerCategory = async (req, res) => {
+
+  const { slug } = req.params;
+  // Display Categories on Select
   const categories = await indexCategory("name", "ASC");
+  // Fetch Product base on slug
+  const products = await productService.perCategoryProd(slug);
+  // Get Categories using slug
+  const categoryName = await getOneCategoryParams(slug);
 
-  const result = await productService.perCategoryProd(slug)
+  if (req.session.isLoggedIn) {
+    userName = req.session.username;
+    logInOut = "Logout"
+  }
 
+  res.render("product/index", {
+    userName,
+    logInOut,
+    products,
+    categories,
+    ejsCategory: categoryName.name,
+  });
 
-  const categoryName = await getOneCategoryParams(slug)
+};
 
-  console.log(categoryName)
-
-  // if(req.session.isLoggedIn){
-    res.render("product/index",{
-
-      ejsName : req.session.username,
-      ejsProducts : result,
-      categories,
-      ejsCategory : categoryName.name
-
-    })
-  // }else{
-  //   res.redirect("/")
-  // }
-}
-
-
-module.exports = { index, 
-  addProduct, 
-  add, 
-  remove, 
-  restore, 
-  edit, 
-  update, 
+module.exports = {
+  index,
+  addProduct,
+  add,
+  remove,
+  restore,
+  edit,
+  update,
   getAll,
-  getPerCategory
+  getPerCategory,
 };
