@@ -7,10 +7,6 @@ const {
 const productService = require("../service/ProductService");
 const clearSession = require("../utils/clearSession");
 const deleteFile = require("../utils/deleteFile");
-const {
-  indexCategory,
-  getOneCategoryParams,
-} = require("../service/category.service");
 
 let userName = "Guest"
 let logInOut = "Login"
