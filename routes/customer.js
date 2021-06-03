@@ -6,21 +6,20 @@ const loggedInSession = require("../utils/loginSession");
 
 customerRoute.post("/", Account.login);
 
-let userName = "Guest"
-let logInOut = "Login"
+let userName = "Guest";
+let logInOut = "Login";
 
 // HOME
 customerRoute.get("/", (req, res) => {
-
   if (req.session.isLoggedIn) {
     userName = req.session.username;
-    logInOut = "Logout"
+    logInOut = "Logout";
   }
 
   res.render("customer/home", {
     ...EJS_INFO,
     userName,
-    logInOut
+    logInOut,
   });
 });
 
@@ -31,22 +30,17 @@ customerRoute.get("/register", (req, res) => {
 });
 customerRoute.post("/register", Account.register);
 
-
-
-
 customerRoute.get("/contact", (req, res) => {
-
   if (req.session.isLoggedIn) {
-    res.render("customer/contact", {
-      userName: req.session.username,
-      logInOut : "Logout"
-    });
-  } else {
-    res.render("login", { ...EJS_INFO},
-    );
+    userName = req.session.username;
+    logInOut = "Logout";
   }
-});
 
+  res.render("customer/contact", {
+    userName,
+    logInOut,
+  });
+});
 
 customerRoute.get("/login", (req, res) => {
   loggedInSession(req);
