@@ -139,13 +139,11 @@ const login = async (req, res) => {
 
   if (result) {
     const [data] = result;
-    
-    req.session.isLoggedIn = true;
-    req.session.username = data.name;
-    console.log(data.name)
     const match = await bcrypt.compare(password, data.password);
 
     if (match) {
+      req.session.isLoggedIn = true;
+      req.session.username = data.name;
       res.render("cart", {
         ejsOrders: [],
         userName: data.name,
