@@ -126,7 +126,7 @@ const login = async (req, res) => {
    const result = await accountService.login(email);
 
   if (!result.length) {
-    res.render("login", {
+    res.render("customer/login", {
       ejsModalDisplay: "block",
       ejsPageTitle: "Register",
       ejsHeadBackground: "bg-danger",
@@ -148,7 +148,8 @@ const login = async (req, res) => {
     if (match) {
       res.render("cart", {
         ejsOrders: [],
-        ejsName: data.name,
+        userName: data.name,
+        logInOut : "Logout"
       });
     } else {
       res.render("login", {
@@ -170,22 +171,21 @@ const register = async (req, res) => {
   const result = await accountService.register(name, email, mobile, password, "customer");
 
   if (typeof result === "boolean" && result === true) {
-    res.render("register", {
+    res.render("customer/register", {
       ejsModalDisplay: "block",
       ejsPageTitle: "Register Success",
       ejsHeadBackground: "bg-success",
       ejsMessageTitle: "Registered Successfully",
       ejsServerMessage:
         "Welcome You have Successfully Registered to Eclick, Please click button to Login",
-      ejsRedirectPage: "/",
+      ejsRedirectPage: "/login",
       ejsMessageButton: "Go to Login Page",
     });
     console.log("New user Created");
   } else {
-    console.log(result);
     res.locals.errors = withErrors(result);
     res.locals.oldValue = { name, email, mobile, password };
-    res.render("register", { ...EJS_INFO });
+    res.render("customer/register", { ...EJS_INFO });
   }
 };
 

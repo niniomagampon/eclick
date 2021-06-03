@@ -1,50 +1,26 @@
 const express = require("express");
 const customerRoute = express.Router();
 const Account = require("../controller/account.controller");
-const EJS_INFO = require("../constants/ejs");
-const loggedInSession = require("../utils/loginSession");
+const Page = require("../controller/page.controller")
 
-customerRoute.post("/", Account.login);
+
 
 let userName = "Guest";
 let logInOut = "Login";
 
 // HOME
-customerRoute.get("/", (req, res) => {
-  if (req.session.isLoggedIn) {
-    userName = req.session.username;
-    logInOut = "Logout";
-  }
+customerRoute.get("/", Page.home);
+customerRoute.post("/", Account.login);
 
-  res.render("customer/home", {
-    ...EJS_INFO,
-    userName,
-    logInOut,
-  });
-});
-
-customerRoute.get("/register", (req, res) => {
-  res.render("register", {
-    ...EJS_INFO,
-  });
-});
+// Register
+customerRoute.get("/register", Page.registerPage);
 customerRoute.post("/register", Account.register);
 
-customerRoute.get("/contact", (req, res) => {
-  if (req.session.isLoggedIn) {
-    userName = req.session.username;
-    logInOut = "Logout";
-  }
+// Contact
+customerRoute.get("/contact", Page.contact);
 
-  res.render("customer/contact", {
-    userName,
-    logInOut,
-  });
-});
+// loginPage
+customerRoute.get("/login", Page.loginPage);
 
-customerRoute.get("/login", (req, res) => {
-  loggedInSession(req);
-  res.render("login", { ...EJS_INFO });
-});
 
 module.exports = customerRoute;

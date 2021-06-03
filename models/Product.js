@@ -39,10 +39,10 @@ Product.init(
     qty: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      unique: true,
+      unique: false,
       validate: {
         notEmpty: {
-          msg: "Product Name is required",
+          msg: "Product Qty is required",
         },
       },
     },
