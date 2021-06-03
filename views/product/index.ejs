@@ -38,24 +38,24 @@
         <button class="btn btn-warning mx-3" onclick="gotoCat()">Submit</button>
       </div>
       <div class="row text-center mt-3">
-        <% for(var i = 0; i < ejsProducts.length; i++){%>
+        <% for(var i = 0; i < products.length; i++){%>
         <div class="col-xl-2 col-md-3 col-6">
-          <a href="/products/<%= ejsProducts[i].id %>">
+          <a href="/products/<%= products[i].id %>">
             <div class="card">
               <img
-                src="<%= ejsProducts[i].image %>"
+                src="<%= products[i].image %>"
                 class="card-img-top product-img"
                 alt="..."
               />
               <div class="card-body">
                 <h6 class="card-title text-decoration-none text-body">
-                  <%= ejsProducts[i].name %>
+                  <%= products[i].name %>
                 </h6>
                 <a href="#" class="btn btn-warning my-2 iconSettings"
                   ><span class="">Add to Cart </span
                   ><img src="../uploads/shopping-bag.svg" alt=""
                 /></a>
-                <p class="card-text">$<%= ejsProducts[i].price %></p>
+                <p class="card-text">$<%= products[i].price %></p>
               </div>
             </div>
           </a>

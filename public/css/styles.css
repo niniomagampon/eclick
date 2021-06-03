@@ -128,8 +128,7 @@ input:focus{
 
 
 .product-img{
-    height: inherit;
-    width: inherit;
+    object-fit: cover;
 }
 
 .product-img img{
