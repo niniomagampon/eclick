@@ -158,9 +158,15 @@ const getProduct = async (req, res) => {
 		return res.redirect("/products/all");
 	}
 
+	if (req.session.isLoggedIn) {
+		userName = req.session.username;
+		logInOut = "Logout"
+	  }
+
 	res.render("product/view", {
-		ejsName: req.session.username,
+		userName,
 		product,
+		logInOut
 	});
 };
 

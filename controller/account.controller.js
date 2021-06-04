@@ -132,7 +132,7 @@ const login = async (req, res) => {
       ejsHeadBackground: "bg-danger",
       ejsMessageTitle: `Email Does not Exist `,
       ejsServerMessage: `${email} does not exist, Please check carefully. If you do not have account yet, Click register`,
-      ejsRedirectPage: `/`,
+      ejsRedirectPage: `/login`,
       ejsMessageButton: "Close",
     });
   }
@@ -145,19 +145,19 @@ const login = async (req, res) => {
       req.session.isLoggedIn = true;
       req.session.username = data.name;
       req.session.user = data;
-      res.render("cart", {
+      res.render("customer/cart", {
         ejsOrders: [],
         userName: data.name,
         logInOut : "Logout"
       });
     } else {
-      res.render("login", {
+      res.render("customer/login", {
         ejsModalDisplay: "block",
         ejsPageTitle: "Register",
         ejsHeadBackground: "bg-danger",
         ejsMessageTitle: `Wrong Password `,
         ejsServerMessage: `You have entered wrong password, Please check before submitting`,
-        ejsRedirectPage: `/`,
+        ejsRedirectPage: `/login`,
         ejsMessageButton: "Close",
       });
     }
