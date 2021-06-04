@@ -13,7 +13,7 @@
     />
     <link rel="stylesheet" href="../css/styles.css" />
   </head>
-  <body>
+  <body class="font-pops">
     <%- include('../header'); -%>
     <div
       class="
@@ -37,7 +37,7 @@
         >
           <h6 class="">THINK, CLICK</h6>
           <p class="display-1 mt-1 mb-5 fw-bold">AND PICK</p>
-          <button class="btn btn-warning w-auto">Shop Now</button>
+          <a href="/products/all"><button class="btn btn-warning w-auto">Shop Now</button></a>
         </div>
         <div
           class="
@@ -52,33 +52,42 @@
         </div>
       </div>
     </div>
-    <div class="container bg-warning py-3">
+    <!-- JUST FOR YOU -->
+    <div class="container-fluid  py-3">
       <h5 class="text-center mb-3">Just for you</h5>
       <div
-        class="row g-2 d-flex align-items-center justify-content-center pt-3"
-      >
-        <% for(var i = 0; i < products.length; i++){%>
+        class="row gx-2 gy-4 d-flex justify-content-lg-center pt-3"
+      > <% const dataLength = products.length || 6 %>
+        <% for(var i = 0; i < dataLength; i++){%>
         <div class="col-6 col-md-3 col-lg-2 text-center randomProducts">
           <div class="card">
+            <a href="/products/<%= products[i].id %>">
             <img
               src="<%= products[i].image %>"
               class="card-img-top product-img"
               alt="..."
             />
-            <div class="card-body">
-              <h6 class="card-title"><%= products[i].name %></h6>
-              <a href="#" class="btn btn-info my-2 iconSettings"
-                ><span class="">Add to Cart </span
-                ><img src="../uploads/shopping-bag.svg" alt=""
-              /></a>
-              <p class="card-text">Php <%= products[i].price %></p>
+            <div class="card-body p-2">
+              <h6 class="text-dark fw-bolder"><%= products[i].name %></h6>
+              <a href="#" class="btn btn-warning my-2 iconSettings text-secondary"
+                ><span>
+                  <i id="cartIcon" class="fas fa-cart-plus"></i> Add to Cart
+                </span></a>
+              <p class="card-text text-success">₱ <%= products[i].price %></p>
             </div>
           </div>
         </div>
         <% }%>
-        <a class="text-center pt-4" href="/products/all"> See All Products</a>
+        <a class="text-center pt-2 fw-bold text-primary" href="/products/all"> See All Products</a>
       </div>
     </div>
+    <hr>
+    <!-- CATEGORIES -->
+    <div class="container-fluid">
+      <h5 class="text-center mb-3">Categories</h5>
+
+    </div>
+    
     <script></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"

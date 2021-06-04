@@ -37,7 +37,7 @@
 
         <button class="btn btn-warning mx-3" onclick="gotoCat()">Submit</button>
       </div>
-      <div class="row text-center mt-3">
+      <div class="row gx-2 gy-3 text-center mt-3">
         <% for(var i = 0; i < products.length; i++){%>
         <div class="col-xl-2 col-md-3 col-6">
           <a href="/products/<%= products[i].id %>">
@@ -48,14 +48,14 @@
                 alt="..."
               />
               <div class="card-body">
-                <h6 class="card-title text-decoration-none text-body">
+                <h6 class="fw-bolder text-body text-decoration-none">
                   <%= products[i].name %>
                 </h6>
-                <a href="#" class="btn btn-warning my-2 iconSettings"
-                  ><span class="">Add to Cart </span
-                  ><img src="../uploads/shopping-bag.svg" alt=""
-                /></a>
-                <p class="card-text">$<%= products[i].price %></p>
+                <a href="#" class="btn btn-warning my-2 iconSettings text-secondary"
+                  ><span>
+                    <i id="cartIcon" class="fas fa-cart-plus"></i> Add to Cart
+                  </span></a>
+                <p class="card-text text-success">₱<%= products[i].price %></p>
               </div>
             </div>
           </a>
