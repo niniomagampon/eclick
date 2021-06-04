@@ -120,6 +120,7 @@ input:focus{
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     background-color: transparent;
     margin: 15px 0px;
+    color: white;
 }
 
 .formcontrol:focus{
