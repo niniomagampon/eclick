@@ -45,15 +45,26 @@
 								id="qty"
 							/>
 						</p>
-						<button
+						<div class="d-flex align-items-center justify-content-center my-3">
+							<button
 							id="cart"
 							href="/cart/add/<%= product.id %>"
-							class="btn btn-warning my-2 iconSettings w-50"
+							class="btn btn-warning my-2 iconSettings mx-3"
 						>
 							<span>
 								<i id="cartIcon" class="fas fa-cart-plus"></i> Add to Cart
 							</span>
 						</button>
+						<button
+							id="cart"
+							href="/wishlist/add/<%= product.id %>"
+							class="btn btn-info my-2 iconSettings"
+						>
+							<span class="text-light">
+								<i id="cartIcon" class="fa fa-shopping-bag text-white"></i> Wishlist
+							</span>
+						</button>
+						</div>
 					</div>
 				</div>
 			</div>
