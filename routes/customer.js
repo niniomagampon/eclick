@@ -10,7 +10,6 @@ let logInOut = "Login";
 
 // HOME
 customerRoute.get("/", Page.home);
-customerRoute.post("/", Account.login);
 
 // Register
 customerRoute.get("/register", Page.registerPage);
@@ -21,8 +20,9 @@ customerRoute.get("/contact", Page.contact);
 
 // loginPage
 customerRoute.get("/login", Page.loginPage);
+customerRoute.post("/", Account.login);
 
+// order summary
 customerRoute.get("/order-summary", Page.orderSummary)
-
 
 module.exports = customerRoute;
