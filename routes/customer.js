@@ -22,5 +22,7 @@ customerRoute.get("/contact", Page.contact);
 // loginPage
 customerRoute.get("/login", Page.loginPage);
 
+customerRoute.get("/order-summary", Page.orderSummary)
+
 
 module.exports = customerRoute;

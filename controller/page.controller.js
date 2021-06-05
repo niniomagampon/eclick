@@ -1,5 +1,6 @@
 const e = require("express");
 const productService = require("../service/ProductService");
+const categoryService  = require("../service/category.service")
 const EJS_INFO = require("../constants/ejs");
 const loggedInSession = require("../utils/loginSession");
 
@@ -11,7 +12,7 @@ const home = async (req, res) => {
     userName = req.session.username;
     logInOut = "Logout";
   }
-
+  const categories = await categoryService.indexCategory()
   const products = await productService.all();
 
   res.render("customer/home", {
@@ -19,6 +20,7 @@ const home = async (req, res) => {
     userName,
     logInOut,
     products,
+    categories
   });
 };
 
@@ -45,9 +47,22 @@ const contact = async (req, res) => {
   });
 };
 
+const orderSummary = async (req, res) => {
+  if (req.session.isLoggedIn) {
+    res.render("customer/ordersummary", {
+      userName: req.session.username,
+      logInOut: "Logout",
+      ejsOrders: [],
+    });
+  } else {
+    res.render("customer/login", EJS_INFO);
+  }
+};
+
 module.exports = {
   home,
   registerPage,
   contact,
   loginPage,
+  orderSummary
 };

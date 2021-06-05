@@ -24,16 +24,6 @@ const add = async (req, res) => {
   }
 };
 
-const index = async (req, res) => {
-  if (req.session.isLoggedIn) {
-    res.render("customer/cart", {
-      userName: req.session.username,
-      logInOut: "Logout",
-      ejsOrders: [],
-    });
-  } else {
-    res.render("customer/login", EJS_INFO);
-  }
-};
 
-module.exports = { add, index };
+
+module.exports = { add };

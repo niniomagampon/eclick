@@ -145,7 +145,7 @@ const login = async (req, res) => {
       req.session.isLoggedIn = true;
       req.session.username = data.name;
       req.session.user = data;
-      res.render("customer/cart", {
+      res.render("customer/ordersummary", {
         ejsOrders: [],
         userName: data.name,
         logInOut : "Logout"

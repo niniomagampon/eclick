@@ -136,19 +136,7 @@ input:focus{
 
 /* Cart Orders */
 
-
-.product-img{
-    object-fit: cover;
-}
-
-.product-img img{
-    width: inherit;
-    height: inherit;
-}
-
 /* Media Queries */
-
-/* LOGIN Page */
 
 /* SMALL device */
 @media screen and (max-width: 766px){
@@ -158,6 +146,10 @@ input:focus{
 
     .top-nav{
         font-size: 0.65rem;
+    }
+
+    .hideonSMmobile{
+        display: none;
     }
 }
 
@@ -193,6 +185,7 @@ input:focus{
         width: 300px;
         margin: auto;
     }
+
 
 }
 
