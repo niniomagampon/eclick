@@ -135,6 +135,9 @@ input:focus{
 }
 
 /* Cart Orders */
+.text-right {
+  text-align: right !important;
+}
 
 /* Media Queries */
 
