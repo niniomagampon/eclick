@@ -25,6 +25,15 @@ Account.init(
         },
       },
     },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Address is required",
+        },
+      },
+    },
     mobile: {
       type: DataTypes.STRING,
       allowNull: false,

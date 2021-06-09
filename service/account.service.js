@@ -16,7 +16,7 @@ const getAllUsers = async () => {
   }
 }
 
-const register = async (name, email, mobile, password, userType) => {
+const register = async (name, email,address, mobile, password, userType) => {
 
   if (password === "") {
     hashedPass = password
@@ -26,7 +26,7 @@ const register = async (name, email, mobile, password, userType) => {
   }
 
   try {
-    await Account.create({ name, email, mobile, password: hashedPass, userType });
+    await Account.create({ name, email, address, mobile, password: hashedPass, userType });
 
     return true;
   } catch (err) {
@@ -71,11 +71,12 @@ const getOneUser = async (id) => {
   }
 };
 
-const update = async (id, name, email, mobile, userType) => {
+const update = async (id, name, email, address, mobile, userType) => {
   try {
     return await Account.update({
       name,
       email,
+      address,
       mobile,
       userType
     }, { where: { id } })
