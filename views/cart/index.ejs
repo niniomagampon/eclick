@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Cart</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="/css/styles.css" />
+		<link
+			href="/fontawesome-free/css/all.min.css"
+			rel="stylesheet"
+			type="text/css"
+		/>
+	</head>
+	<body>
+		<%- include('../header'); -%>
+		<div class="container-fluid px-3 px-lg-5 py-4">
+      <% if (cart.products.length > 0) { %>
+			<div class="table-responsive">
+        <table class="table table-hover align-middle" id="cartTable">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Product</th>
+              <th scope="col">Name</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Sub Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% cart.products.forEach((product, idx) => { %>
+            <tr>
+              <td>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="<%= product.carts.id %>" id="cartId" checked>
+                  <label class="form-check-label" for="cartId">
+                    <%= idx+1 %>
+                  </label>
+                </div>
+              </td>
+              <td><img src="<%= product.image %>" alt="<%= product.name %>" height="75px" width="75px"></td>
+              <td><%= product.name %></td>
+              <td>₱ <%= product.price %></td>
+              <td>
+                <button type="button" class="btn p-0" onclick="updateQty('<%= product.carts.id %>', 'decrement')">
+                  <i class="fas fa-minus-circle text-warning"></i>
+                </button>
+                <%= product.carts.qty %>
+                <button type="button" class="btn p-0" onclick="updateQty('<%= product.carts.id %>', 'increment')">
+                  <i class="fas fa-plus-circle text-info"></i>
+                </button>
+              </td>
+              <td>
+                <div class="d-flex justify-content-between align-items-center">
+                  ₱ <%= (product.price * product.carts.qty) %>
+                  <button type="button" class="btn p-0" onclick="removeToCart('<%= product.carts.id %>')">
+                    <i class="fas fa-trash text-danger"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <% }) %>
+            <tfoot>
+              <tr>
+                <td colspan="5" class="text-right">
+                  Total
+                </td>
+                <td>₱ <%= total %></td>
+              </tr>
+            </tfoot>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-right">
+        <button class="btn btn-warning text-white" onclick="checkout()">CHECKOUT</button>
+      </div>
+      <% } else { %>
+        <h2 class="text-center">Your cart is empty...</h2>
+      <% } %>
+		</div>
+    <script>
+      function removeToCart(cartId) {
+        fetch("/cart/remove", {
+					method: "POST",
+					headers: {
+						Accept: "application/json, text/plain, */*",
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({cartId}),
+				})
+					.then((response) => {
+						if (response.redirected) {
+							window.location.href = response.url;
+						}
+						return response.json();
+					})
+      }
+
+      function updateQty(cartId, action) {
+        fetch(`/cart/update/${cartId}?q=${action}`, {
+					method: "POST",
+					headers: {
+						Accept: "application/json, text/plain, */*",
+						"Content-Type": "application/json",
+					},
+				})
+					.then((response) => {
+						if (response.redirected) {
+							window.location.href = response.url;
+						}
+						return response.json();
+					})
+      }
+
+      function checkout() {
+        const grid = document.getElementById("cartTable");
+        const checkBoxes = grid.getElementsByTagName("INPUT");
+        const cartIds = [];
+
+        for (var i = 0; i < checkBoxes.length; i++) {
+            if (checkBoxes[i].checked) {
+              cartIds.push(checkBoxes[i].value)
+            }
+        }
+
+        fetch(`/cart/checkout`, {
+					method: "POST",
+					headers: {
+						Accept: "application/json, text/plain, */*",
+						"Content-Type": "application/json",
+					},
+          body: JSON.stringify({cartIds}),
+				})
+					.then((response) => {
+						if (response.redirected) {
+							window.location.href = response.url;
+						}
+						return response.json();
+					}).then((data) => {
+						if (data.status === 400) {
+							alert(data.message);
+							return;
+						}
+					});
+      }
+    </script>
+		<script type="text/javascript" src="/js/script.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>
