@@ -147,8 +147,11 @@ const login = async (req, res) => {
       req.session.isLoggedIn = true;
       req.session.username = data.name;
       req.session.user = data;
+
+	  const orders = await []
+
       res.render("customer/ordersummary", {
-        ejsOrders: [],
+        orders,
         userName: data.name,
         logInOut : "Logout"
       });

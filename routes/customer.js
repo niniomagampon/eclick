@@ -2,6 +2,7 @@ const express = require("express");
 const customerRoute = express.Router();
 const Account = require("../controller/account.controller");
 const Page = require("../controller/page.controller")
+const Order = require("../controller/order.controller")
 
 
 
@@ -23,6 +24,7 @@ customerRoute.get("/login", Page.loginPage);
 customerRoute.post("/", Account.login);
 
 // order summary
-customerRoute.get("/order-summary", Page.orderSummary)
+customerRoute.get("/order-summary", Order.orderSummary)
+customerRoute.get("/order-summary/:status", Order.orderSummaryParams)
 
 module.exports = customerRoute;
