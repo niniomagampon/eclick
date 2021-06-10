@@ -37,11 +37,19 @@
                     <td>Actions</td>
                 </tr>
             </thead>
-            <tbody id="order-all"></tbody>
-            <tbody id="order-pending"></tbody>
-            <tbody id="order-shipping"></tbody>
-            <tbody id="order-received"></tbody>
-            <tbody id="order-cancelled"></tbody>
+            <tbody><% for (const order of orders){ %>
+                <tr>
+                    <!-- <td</td>
+                    <td class="hideonSMmobile">Image</td>
+                    <td>Quantity</td>
+                    <td class="hideonmobile">Price</td>
+                    <td class="hideonmobile">Payment</td>
+                    <td class="hideonSMmobile">Status</td>
+                    <td>Actions</td> -->
+                </tr>
+            <% } %>
+            </tbody>
+
         </table>
     </div>
     <script>

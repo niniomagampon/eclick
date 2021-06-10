@@ -4,8 +4,8 @@ const orderSummary = async (req, res) => {
 
     if (req.session.isLoggedIn) {
   
-      const orders = await orderService.getAllOrder
-  
+    //   const orders = await orderService.getAllOrder
+        const orders = []
       res.render("customer/ordersummary", {
         userName: req.session.username,
         logInOut: "Logout",
