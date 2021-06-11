@@ -99,7 +99,17 @@ const checkout = async (req, res) => {
 		}
 	});
 
-	res.json(cart);
+	let total = 0;
+	cart.products.forEach((product) => {
+		total += product.price * product.carts.qty;
+	});
+
+	res.render("cart/checkout", {
+		userName: req.session.username,
+		logInOut: "Logout",
+		cart,
+		total,
+	});
 };
 
 module.exports = { add, get, remove, update, checkout };

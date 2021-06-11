@@ -22,6 +22,7 @@
 		<%- include('../header'); -%>
 		<div class="container-fluid px-3 px-lg-5 py-4">
       <% if (cart.products.length > 0) { %>
+      <form action="/cart/checkout" method="POST" id="cartForm">
 			<div class="table-responsive">
         <table class="table table-hover align-middle" id="cartTable">
           <thead>
@@ -39,7 +40,7 @@
             <tr>
               <td>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="<%= product.carts.id %>" id="cartId" checked>
+                  <input class="form-check-input" type="checkbox" value="<%= product.carts.id %>" name="cartIds[]" id="cartId" checked onclick="selectedOne()">
                   <label class="form-check-label" for="cartId">
                     <%= idx+1 %>
                   </label>
@@ -79,8 +80,9 @@
         </table>
       </div>
       <div class="text-right">
-        <button class="btn btn-warning text-white" onclick="checkout()">CHECKOUT</button>
+        <button class="btn btn-warning text-white" type="submit" id="checkoutBtn">CHECKOUT</button>
       </div>
+    </form>
       <% } else { %>
         <h2 class="text-center">Your cart is empty...</h2>
       <% } %>
@@ -119,37 +121,20 @@
 					})
       }
 
-      function checkout() {
-        const grid = document.getElementById("cartTable");
-        const checkBoxes = grid.getElementsByTagName("INPUT");
-        const cartIds = [];
 
+      const grid = document.getElementById("cartTable");
+      const checkoutBtn = document.getElementById("checkoutBtn");
+      const checkBoxes = grid.getElementsByTagName("INPUT");
+      function selectedOne() {
+        const cartIds = [];
         for (var i = 0; i < checkBoxes.length; i++) {
             if (checkBoxes[i].checked) {
               cartIds.push(checkBoxes[i].value)
             }
         }
-
-        fetch(`/cart/checkout`, {
-					method: "POST",
-					headers: {
-						Accept: "application/json, text/plain, */*",
-						"Content-Type": "application/json",
-					},
-          body: JSON.stringify({cartIds}),
-				})
-					.then((response) => {
-						if (response.redirected) {
-							window.location.href = response.url;
-						}
-						return response.json();
-					}).then((data) => {
-						if (data.status === 400) {
-							alert(data.message);
-							return;
-						}
-					});
+        if (cartIds.length > 0) checkoutBtn.disabled = false; else checkoutBtn.disabled = true;
       }
+               
     </script>
 		<script type="text/javascript" src="/js/script.js"></script>
 		<script
