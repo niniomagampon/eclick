@@ -1,6 +1,7 @@
 const e = require("express");
 const productService = require("../service/ProductService");
 const categoryService  = require("../service/category.service")
+const orderService = require("../service/order.service")
 const EJS_INFO = require("../constants/ejs");
 const loggedInSession = require("../utils/loginSession");
 
@@ -47,22 +48,45 @@ const contact = async (req, res) => {
   });
 };
 
-const orderSummary = async (req, res) => {
+
+const settingsPage = async (req, res) =>{
   if (req.session.isLoggedIn) {
-    res.render("customer/ordersummary", {
-      userName: req.session.username,
-      logInOut: "Logout",
-      ejsOrders: [],
-    });
-  } else {
-    res.render("customer/login", EJS_INFO);
+    userName = req.session.username;
+    logInOut = "Logout";
+    data = req.session.user
+
+    res.render("customer/settings", {
+      userName,
+      logInOut,
+      data
+    })
+  }else{
+    res.redirect("/login")
   }
-};
+}
+
+const settingsEdit = async(req, res) =>{
+  if (req.session.isLoggedIn) {
+    userName = req.session.username;
+    logInOut = "Logout";
+    data = req.session.user
+
+    res.render("customer/settingsEdit", {
+      userName,
+      logInOut,
+      data
+    })
+  }else{
+    res.redirect("/login")
+  }
+}
+
 
 module.exports = {
   home,
   registerPage,
   contact,
   loginPage,
-  orderSummary
+  settingsPage,
+  settingsEdit
 };

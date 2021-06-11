@@ -139,6 +139,18 @@ input:focus{
   text-align: right !important;
 }
 
+/* ORDER SUMMARY */
+
+/* Settings */
+
+.bg-first{
+    background-color: rgb(245, 245, 245);
+}
+
+.bg-img{
+    width: 400px;
+    height: 500px;
+}
 /* Media Queries */
 
 /* SMALL device */

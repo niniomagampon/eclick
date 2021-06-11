@@ -1,3 +1,5 @@
+const Order = require("../models/Order")
+
 // const add = async (payload) => {
 // 	try {
 // 		const cart = await Cart.findOne({
@@ -20,3 +22,26 @@
 // 		return err;
 // 	}
 // };
+
+const getAllOrder = async () =>{
+    try{
+        return await Order.findAll({})
+    }catch(err){
+        return err
+    }
+}
+
+const orderStatus = async ( status ) =>{
+    try{
+        return await Order.findAll({
+            where: {
+                order_status : status
+            }
+        })
+    }catch(err){
+        return err
+    }
+}
+
+module.exports = {getAllOrder, 
+    orderStatus}

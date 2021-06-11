@@ -35,6 +35,12 @@
                             </div>
                         </div>
                         <div class="mb-3">
+                            <input type="text" name="address" placeholder="Your Address" class="<%= (locals.errors) ? 'is-invalid' : '' %>" value="<%= (locals.oldValue) ? oldValue.address : '' %>">
+                            <div class="invalid-feedback text-center">
+                                <%= (locals.errors) ? errors.address : '' %>
+                            </div>
+                        </div>
+                        <div class="mb-3">
                             <input type="text" name="mobile" placeholder="Your Mobile" class="<%= (locals.errors) ? 'is-invalid' : '' %>" value="<%= (locals.oldValue) ? oldValue.mobile : '' %>">
                             <div class="invalid-feedback text-center">
                                 <%= (locals.errors) ? errors.mobile : '' %>

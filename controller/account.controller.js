@@ -21,11 +21,12 @@ const index = async (req, res) => {
 };
 
 const add = async (req, res) => {
-	const { name, email, mobile, password, userType } = req.body;
+	const { name, email,address, mobile, password, userType } = req.body;
 
 	const user = await accountService.register(
 		name,
 		email,
+		address,
 		mobile,
 		password,
 		userType
@@ -62,6 +63,7 @@ const edit = async (req, res) => {
 			id: result.id,
 			name: result.name,
 			email: result.email,
+			address: result.address,
 			mobile: result.mobile,
 			userType: result.userType,
 			isSuccess,
@@ -74,8 +76,8 @@ const edit = async (req, res) => {
 
 const update = async (req, res) => {
 	clearSession(req);
-	const { id, name, email, mobile, userType } = req.body;
-	const result = await accountService.update(id, name, email, mobile, userType);
+	const { id, name, email, address, mobile, userType } = req.body;
+	const result = await accountService.update(id, name, email,address, mobile, userType);
 	console.log(result);
 	if (typeof result === "object" && result[0] === 1) {
 		req.session.isSuccess = true;
@@ -145,8 +147,11 @@ const login = async (req, res) => {
       req.session.isLoggedIn = true;
       req.session.username = data.name;
       req.session.user = data;
+
+	  const orders = await []
+
       res.render("customer/ordersummary", {
-        ejsOrders: [],
+        orders,
         userName: data.name,
         logInOut : "Logout"
       });
@@ -165,11 +170,12 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  const { name, email, mobile, password } = req.body;
+  const { name, email,address, mobile, password } = req.body;
 
   const result = await accountService.register(
     name, 
-    email, 
+    email,
+	address,
     mobile, 
     password, 
     "customer"
@@ -189,7 +195,7 @@ const register = async (req, res) => {
     console.log("New user Created");
   } else {
     res.locals.errors = withErrors(result);
-    res.locals.oldValue = { name, email, mobile, password };
+    res.locals.oldValue = { name, email,address, mobile, password };
     res.render("customer/register", { ...EJS_INFO });
   }
 };

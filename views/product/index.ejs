@@ -51,9 +51,9 @@
                 <h6 class="fw-bolder text-body text-decoration-none">
                   <%= products[i].name %>
                 </h6>
-                <a href="#" class="btn btn-warning my-2 iconSettings text-secondary"
+                <a href="/products/<%= products[i].id %>" class="btn btn-warning my-2 iconSettings text-secondary"
                   ><span>
-                    <i id="cartIcon" class="fas fa-cart-plus"></i> Add to Cart
+                    <i id="cartIcon" class="fas fa-eye"></i> View
                   </span></a>
                 <p class="card-text text-success">₱<%= products[i].price %></p>
                 <a href="" class="text-decoration-none text-info d-block"><span class="fa fa-shopping-bag"></span> Wishlist</a>
