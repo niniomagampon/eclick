@@ -27,4 +27,8 @@ customerRoute.post("/", Account.login);
 customerRoute.get("/order-summary", Order.orderSummary)
 customerRoute.get("/order-summary/:status", Order.orderSummaryParams)
 
+// Settings
+customerRoute.get("/settings", Page.settingsPage)
+customerRoute.get("/settings/edit", Page.settingsEdit)
+
 module.exports = customerRoute;

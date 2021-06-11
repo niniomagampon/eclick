@@ -2,10 +2,9 @@ const orderService = require("../service/order.service")
 const EJS_INFO = require("../constants/ejs")
 const orderSummary = async (req, res) => {
 
-    if (req.session.isLoggedIn) {
+  if (req.session.isLoggedIn) {
   
-    //   const orders = await orderService.getAllOrder
-        const orders = []
+  const orders = await orderService.getAllOrder()
       res.render("customer/ordersummary", {
         userName: req.session.username,
         logInOut: "Logout",

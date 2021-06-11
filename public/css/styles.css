@@ -141,20 +141,15 @@ input:focus{
 
 /* ORDER SUMMARY */
 
-.order-tab{
-    padding:10px;
-    cursor: pointer;
-    border: 1px solid rgb(182, 182, 182);
+/* Settings */
+
+.bg-first{
+    background-color: rgb(245, 245, 245);
 }
 
-.order-tab:nth-child(1):hover,
-.order-tab:nth-child(2):hover,
-.order-tab:nth-child(3):hover,
-.order-tab:nth-child(4):hover
-{
-    background-color: var(--primary);
-    color: white;
-    font-weight: 700;
+.bg-img{
+    width: 400px;
+    height: 500px;
 }
 /* Media Queries */
 

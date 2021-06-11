@@ -48,9 +48,45 @@ const contact = async (req, res) => {
   });
 };
 
+
+const settingsPage = async (req, res) =>{
+  if (req.session.isLoggedIn) {
+    userName = req.session.username;
+    logInOut = "Logout";
+    data = req.session.user
+
+    res.render("customer/settings", {
+      userName,
+      logInOut,
+      data
+    })
+  }else{
+    res.redirect("/login")
+  }
+}
+
+const settingsEdit = async(req, res) =>{
+  if (req.session.isLoggedIn) {
+    userName = req.session.username;
+    logInOut = "Logout";
+    data = req.session.user
+
+    res.render("customer/settingsEdit", {
+      userName,
+      logInOut,
+      data
+    })
+  }else{
+    res.redirect("/login")
+  }
+}
+
+
 module.exports = {
   home,
   registerPage,
   contact,
   loginPage,
+  settingsPage,
+  settingsEdit
 };
