@@ -1,5 +1,5 @@
 const e = require("express");
-const { Category } = require("../models");
+const { Category, ProductLogs, Account } = require("../models");
 const {
 	indexCategory,
 	getOneCategoryParams,
@@ -16,14 +16,15 @@ let logInOut = "Login";
 const index = async (req, res) => {
 	clearSession(req);
 	const products = await productService.all();
-	res.render("admin/products/index", { products });
+	res.render("admin/products/index", { products, user: req.session.user });
 };
 
 const add = async (req, res) => {
-	const categories = await indexCategory("name", "ASC");
+	const categories = await indexCategory("name", "ASC", true);
 	res.render("admin/products/add", {
 		categories,
 		imageError: req.session.imageError,
+		user: req.session.user,
 	});
 };
 
@@ -44,8 +45,14 @@ const addProduct = async (req, res) => {
 	};
 
 	const result = await productService.create(data);
+	await ProductLogs.create({
+		qty,
+		productId: result.product.id,
+		accountId: req.session.user.id,
+	});
 
-	if (typeof result === "boolean") res.redirect("/admin/products");
+	if ("success" in result) res.redirect("/admin/products");
+	else res.redirect("/admin/products/add");
 };
 
 const edit = async (req, res) => {
@@ -59,6 +66,7 @@ const edit = async (req, res) => {
 			categories,
 			isSuccess,
 			errors,
+			user: req.session.user,
 		});
 	} else {
 		res.redirect("/admin/products");
@@ -108,13 +116,28 @@ const viewProduct = async (req, res) => {
 	const { id } = req.params;
 	const products = await getSingleProduct({ id });
 	const currentProduct = await productService.getOneProduct(id);
-	res.render("admin/products/view", { products, currentProduct });
+
+	const productLogs = await ProductLogs.findAll({
+		include: Account,
+		where: { productId: id },
+	});
+	res.render("admin/products/view", {
+		products,
+		currentProduct,
+		user: req.session.user,
+		productLogs,
+	});
 };
 
 const addQty = async (req, res) => {
 	const { id } = req.params;
 	const { qty } = req.body;
 	await productService.addQty(id, qty);
+	await ProductLogs.create({
+		qty,
+		productId: id,
+		accountId: req.session.user.id,
+	});
 	res.redirect("/admin/products/view/" + id);
 };
 
@@ -135,6 +158,7 @@ const getAll = async (req, res) => {
 		products,
 		categories,
 		ejsCategory: "All Products",
+		user: req.session.user,
 	});
 };
 
@@ -158,6 +182,7 @@ const getPerCategory = async (req, res) => {
 		products,
 		categories,
 		ejsCategory: categoryName.name,
+		user: req.session.user,
 	});
 };
 
@@ -178,6 +203,7 @@ const getProduct = async (req, res) => {
 		userName,
 		product,
 		logInOut,
+		user: req.session.user,
 	});
 };
 

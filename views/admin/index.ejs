@@ -80,6 +80,7 @@
 							<td>Payment Status</td>
 							<td>Order Status</td>
 							<td>Total</td>
+							<td>Order Created</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -93,7 +94,10 @@
 							<td><%= rOrder.payment_type %></td>
 							<td><%= rOrder.payment_status %></td>
 							<td><%= rOrder.order_status %></td>
-							<td><%= rOrder.total %></td>
+							<td>₱ <%= rOrder.total %></td>
+							<td><%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month:
+                'long', day: '2-digit',hour: 'numeric', minute: 'numeric', second:
+                'numeric',}).format(rOrder.createdAt) %></td>
 						</tr>
 						<% } %>
 					</tbody>

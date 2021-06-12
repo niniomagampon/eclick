@@ -26,7 +26,7 @@
 							class="form-control"
 							id="inlineFormQty"
 							name="qty"
-              min="1"
+							min="1"
 							placeholder="1"
 						/>
 					</div>
@@ -39,6 +39,40 @@
 		<div></div>
 	</div>
 	<div class="card-body">
+		<h4 class="text-primary">Inbound Stocks</h4>
+		<div class="table-responsive mb-3">
+			<table
+				class="table table-bordered"
+				id="productLogs"
+				width="100%"
+				cellspacing="0"
+			>
+				<thead>
+					<tr>
+						<th>User</th>
+						<th>User Type</th>
+						<th>Quantity</th>
+						<th>Date Added</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for (const p of productLogs) { %>
+					<tr>
+						<td><%= p.account.name %></td>
+						<td><%= p.account.userType %></td>
+						<td><%= p.qty %></td>
+						<td>
+							<%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month:
+							'long', day: '2-digit',hour: 'numeric', minute: 'numeric', second:
+							'numeric',}).format(p.createdAt) %>
+						</td>
+					</tr>
+					<% } %>
+				</tbody>
+			</table>
+		</div>
+
+    <h4 class="text-info">Outbound Stocks</h4>
 		<div class="table-responsive">
 			<table
 				class="table table-bordered"
@@ -82,6 +116,9 @@
 <script>
 	$(document).ready(function () {
 		const table = $("#dataTable").DataTable({
+			ordering: false,
+		});
+    const logs = $("#productLogs").DataTable({
 			ordering: false,
 		});
 	});

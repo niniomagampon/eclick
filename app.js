@@ -42,7 +42,7 @@ app.use("/cart", cartRoute);
 
 app.use("/products", productsRoute);
 
-app.use("/admin", adminRoute);
+app.use("/admin", AUTH, adminRoute);
 
 // Server Starter
 app.listen(port, async () => {
