@@ -113,6 +113,11 @@ const adminLogin = async (req, res) => {
 		const [user] = result;
 		const match = await bcrypt.compare(password, user.password);
 
+    if (!["Admin", "Staff"].includes(user.userType)) {
+      res.locals.msg = "Invalid email or password.";
+			return res.render("admin/login");
+    }
+
 		if (match) {
 			req.session.user = user;
 			req.session.userType = user.userType;
