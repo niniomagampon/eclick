@@ -1,6 +1,7 @@
 const { Product, Category } = require("../models");
 const deleteFile = require("../utils/deleteFile");
 const { join } = require("path");
+const { Sequelize } = require("../configs/database");
 // const { where } = require("sequelize/types");
 
 const all = async (column = "createdAt", sort = "DESC", paranoid = "false") => {
@@ -87,6 +88,17 @@ const perCategoryProd = async (slug) => {
 	}
 };
 
+const addQty = async (id, qty) => {
+	try {
+		return await Product.update(
+			{ qty: Sequelize.literal(`qty + ${qty}`) },
+			{ where: { id } }
+		);
+	} catch (err) {
+		return err;
+	}
+};
+
 module.exports = {
 	create,
 	all,
@@ -95,4 +107,5 @@ module.exports = {
 	getOneProduct,
 	update,
 	perCategoryProd,
+	addQty,
 };

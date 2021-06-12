@@ -1,6 +1,6 @@
 const sequelize = require("../configs/database");
 const { Sequelize } = require("../configs/database");
-const { Cart, Product, OrderLineItem } = require("../models");
+const { Cart, Product, OrderLineItem, Account } = require("../models");
 const Order = require("../models/Order");
 const productService = require("../service/ProductService");
 
@@ -63,18 +63,85 @@ const add = async (orderPayload, cartIds, cart) => {
 	}
 };
 
-const getAllOrder = async (payload) => {
+const getAllOrder = async ({
+	accountId,
+	from,
+	to,
+	payment_type,
+	payment_status,
+	order_status,
+}) => {
 	try {
+		const Op = Sequelize.Op;
+		let filter = {};
+		if (accountId !== null) {
+			filter.where = {
+				accountId,
+			};
+		}
+		if (payment_type !== "") {
+			filter.where = {
+				...filter.where,
+				payment_type,
+			};
+		}
+		if (payment_status !== "") {
+			filter.where = {
+				...filter.where,
+				payment_status,
+			};
+		}
+		if (order_status !== "") {
+			filter.where = {
+				...filter.where,
+				order_status,
+			};
+		}
+		if (from !== "") {
+			filter.where = {
+				...filter.where,
+				createdAt: {
+					[Op.gte]: new Date(from),
+				},
+			};
+		}
+
+		if (to !== "") {
+			const end = new Date(to);
+			end.setHours(23, 59, 59, 999);
+			filter.where = {
+				...filter.where,
+				createdAt: {
+					[Op.lte]: end,
+				},
+			};
+		}
+
+		if (from !== "" && to !== "") {
+			const start = new Date(from);
+			const end = new Date(to);
+      end.setHours(23, 59, 59, 999);
+			filter.where = {
+				...filter.where,
+				createdAt: {
+					[Op.between]: [start, end],
+				},
+			};
+		}
+
+		console.log(`Hello`, filter);
 		return await Order.findAll({
-			where: {
-				accountId: payload.accountId,
-			},
+			...filter,
 			include: [
 				{
 					model: OrderLineItem,
 					include: Product,
 				},
+				{
+					model: Account,
+				},
 			],
+			order: [["createdAt", "DESC"]],
 		});
 	} catch (err) {
 		return err;
@@ -93,4 +160,67 @@ const orderStatus = async (status) => {
 	}
 };
 
-module.exports = { getAllOrder, orderStatus, add };
+const getOrderByReference = async (ref_number) => {
+	try {
+		return await Order.findOne({
+			where: {
+				ref_number,
+			},
+			include: [
+				{
+					model: OrderLineItem,
+					include: Product,
+				},
+				{
+					model: Account,
+				},
+			],
+		});
+	} catch (err) {
+		return err;
+	}
+};
+
+const updateOrder = async (payload, ref_number) => {
+	try {
+		await Order.update(payload, {
+			where: {
+				ref_number,
+			},
+		});
+
+		return true;
+	} catch (err) {
+		return err;
+	}
+};
+
+const getSingleProduct = async (payload) => {
+	try {
+		return await Order.findAll({
+			include: [
+				{
+					model: OrderLineItem,
+					include: Product,
+					where: {
+						productId: payload.id,
+					},
+				},
+				{
+					model: Account,
+				},
+			],
+		});
+	} catch (err) {
+		return err;
+	}
+};
+
+module.exports = {
+	getAllOrder,
+	orderStatus,
+	add,
+	getOrderByReference,
+	updateOrder,
+	getSingleProduct,
+};

@@ -160,7 +160,9 @@ const confirm = async (req, res) => {
 
 	try {
 		const order = await orderService.add(orderPayload, convertedCartId, cart);
-		if ("status" in order && order.status === 400) {
+		if (typeof order === "boolean" && order === true) {
+			res.redirect("/order-summary");
+		} else if ("status" in order && order.status === 400) {
 			req.session.status = order.status;
 			req.session.message = order.message;
 

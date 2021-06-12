@@ -1,7 +1,7 @@
 <%- include('../layout/layout') -%>
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
     <li class="breadcrumb-item active" aria-current="page">Products</li>
   </ol>
 </nav>
@@ -43,11 +43,14 @@
             <td><%= product.description %></td>
             <td><%= product.category.name %></td>
             <td>
-              <img class="img-fluid" src="<%= product.image %>" alt="<%= product.name %>" />
+              <img class="img-fluid" src="<%= product.image %>" width="75px" alt="<%= product.name %>" />
             </td>
             <td><%= product.qty %></td>
             <td>₱<%= product.price %></td>
             <td>
+              <a href="/admin/products/view/<%= product.id %>">
+                <i class="text-muted fas fa-eye"></i>
+              </a>
               <% if (product.deletedAt == null) {%>
               <a href="/admin/products/edit/<%= product.id %>">
                 <i class="text-warning fas fa-edit"></i>

@@ -1,0 +1,90 @@
+<%- include('../layout/layout') -%>
+<style>
+#proofOfPayment:hover {
+  width: auto;
+}
+</style>
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+		<li class="breadcrumb-item"><a href="/admin/orders">Orders</a></li>
+		<li class="breadcrumb-item active" aria-current="page">View</li>
+	</ol>
+</nav>
+
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<div class="d-flex justify-content-between">
+			<h1 class="h3 text-gray-800">Order for: <%= orders.ref_number %></h1>
+		</div>
+	</div>
+	<div class="card-body">
+		<form class="form-inline justify-content-between mb-3" action="/admin/orders/<%= orders.ref_number %>" method="POST">
+			<div class="form-group">
+				<label for="inputState">Order Status: </label>
+				<select id="inputState" class="form-control" name="order_status">
+					<option value="Place" <%= orders.order_status === 'Place' ? 'selected' : '' %>>Place</option>
+					<option value="Processing" <%= orders.order_status === 'Processing' ? 'selected' : '' %>>Processing</option>
+					<option value="Out for Delivery" <%= orders.order_status === 'Out for Delivery' ? 'selected' : '' %>>Out for Delivery</option>
+					<option value="Delivered" <%= orders.order_status === 'Delivered' ? 'selected' : '' %>>Delivered</option>
+					<option value="Cancelled" <%= orders.order_status === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
+					<option value="Void" <%= orders.order_status === 'Void' ? 'selected' : '' %>>Void</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="inputState">Payment Status: </label>
+				<select id="inputState" class="form-control" name="payment_status">
+					<option value="Pending" <%= orders.order_status === 'Pending' ? 'selected' : '' %>>Pending</option>
+					<option value="Paid" <%= orders.order_status === 'Paid' ? 'selected' : '' %>>Paid</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<span>Payment Type: <%= orders.payment_type %></span>
+			</div>
+			<div class="form-group">
+				<span>Total: <%= orders.total %></span>
+			</div>
+			<button type="submit" class="btn btn-warning">Update</button>
+		</form>
+    <div class="row mb-3">
+      <div class="col-md-6">Name: <%= orders.account.name %></div>
+      <div class="col-md-6">Address: <%= orders.address %></div>
+    </div>
+    <% if (orders.payment_type === 'GCash') { %>
+      <img class="mb-3" src="<%= orders.proof_of_payment %>" id="proofOfPayment" width="300px" alt="<%= orders.ref_number %>">
+    <% } %>
+		<div class="table-responsive">
+			<table class="table table-hoverable table-bordered" id="dataTable">
+				<thead>
+					<tr>
+						<th>Product</th>
+						<th>Name</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th>Sub total</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for (const line of orders.order_line_items) { %>
+					<tr>
+						<td>
+							<img
+								src="<%= line.product.image %>"
+								alt="<%= line.product.name %>"
+								height="75px"
+								width="75px"
+							/>
+						</td>
+						<td><%= line.product.name %></td>
+						<td><%= line.price %></td>
+						<td><%= line.qty %></td>
+						<td><%= line.price * line.qty %></td>
+					</tr>
+					<% } %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<%- include('../layout/footer') -%>

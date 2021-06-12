@@ -1,0 +1,121 @@
+<%- include('../layout/layout') -%>
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Orders</li>
+	</ol>
+</nav>
+
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<div class="d-flex justify-content-between">
+			<h1 class="h3 text-gray-800">Orders</h1>
+			<form method="GET" class="form-inline align-items-center">
+				<div class="form-group">
+					<select class="form-control mr-1" name="payment_type">
+						<option value="" <%= payment_type === '' ? 'selected' : '' %>>All</option>
+						<option value="COD" <%= payment_type === 'COD' ? 'selected' : '' %>>COD</option>
+						<option value="GCash" <%= payment_type === 'GCash' ? 'selected' : '' %>>GCash</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<select class="form-control mr-1" name="payment_status">
+						<option value="" <%= payment_status === '' ? 'selected' : '' %>>All</option>
+						<option value="Paid" <%= payment_status === 'Paid' ? 'selected' : '' %>>Paid</option>
+						<option value="Pending" <%= payment_status === 'Pending' ? 'selected' : '' %>>Pending</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<select class="form-control mr-1" name="order_status">
+						<option value="" <%= order_status === '' ? 'selected' : '' %>>All</option>
+						<option value="Placed" <%= order_status === 'Placed' ? 'selected' : '' %>>Placed</option>
+						<option value="Processing" <%= order_status === 'Processing' ? 'selected' : '' %>>Processing</option>
+						<option value="Out for Delivery" <%= order_status === 'Out for Delivery' ? 'selected' : '' %>>Out for Delivery</option>
+						<option value="Delivered" <%= order_status === 'Delivered' ? 'selected' : '' %>>Delivered</option>
+						<option value="Cancelled" <%= order_status === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
+						<option value="Void" <%= order_status === 'Void' ? 'selected' : '' %>>Void</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<input
+						type="date"
+						class="form-control mr-1"
+						name="from"
+						value="<%= from %>"
+					/>
+				</div>
+				<div class="form-group">
+					<input
+						type="date"
+						class="form-control mr-1"
+						name="to"
+						value="<%= to %>"
+					/>
+				</div>
+				<button type="submit" class="btn btn-primary">Search</button>
+			</form>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table
+				class="table table-bordered"
+				id="dataTable"
+				width="100%"
+				cellspacing="0"
+			>
+				<thead>
+					<tr>
+						<th>Reference Number</th>
+						<th>Name</th>
+						<th>Address</th>
+						<th>Payment Type</th>
+						<th>Payment Status</th>
+						<th>Order Status</th>
+						<th>Total</th>
+						<th>Ordered Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for (const order of orders) { %>
+					<tr>
+						<td>
+							<a href="/admin/orders/<%= order.ref_number %>">
+								<%= order.ref_number %>
+							</a>
+						</td>
+						<td><%= order.account.name %></td>
+						<td><%= order.address %></td>
+						<td><%= order.payment_type %></td>
+						<td><%= order.payment_status %></td>
+						<td><%= order.order_status %></td>
+						<td>₱ <%= order.total %></td>
+						<td>
+							<%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month:
+							'long', day: '2-digit',hour: 'numeric', minute: 'numeric', second:
+							'numeric',}).format(order.createdAt) %>
+						</td>
+					</tr>
+					<% } %>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="7" class="text-right">Grand Total</td>
+						<td>₱ <%= total %></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(document).ready(function () {
+		$("#dataTable").DataTable({
+			ordering: false,
+			searching: false,
+		});
+	});
+</script>
+
+<%- include('../layout/footer') -%>
