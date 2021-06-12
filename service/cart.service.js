@@ -1,4 +1,5 @@
 const { Sequelize } = require("../configs/database");
+const sequelize = require("../configs/database");
 const { Cart, Product, Account } = require("../models");
 
 const get = async (payload) => {

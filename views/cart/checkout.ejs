@@ -22,137 +22,104 @@
 		<%- include('../header'); -%>
 		<div class="container-fluid px-3 px-lg-5 py-4 mx-auto w-75">
       <h3>Order Summary</h3>
-			<pre>
-        <%= JSON.stringify(cart) %>
-      </pre>
-			<div class="accordion accordion-flush" id="accordionFlushExample">
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="flush-headingOne">
-						<button
-							class="accordion-button"
-							type="button"
-							data-bs-toggle="collapse"
-							data-bs-target="#flush-collapseOne"
-							aria-expanded="true"
-							aria-controls="flush-collapseOne"
-						>
-							Address Information
-						</button>
-					</h2>
-					<div
-						id="flush-collapseOne"
-						class="accordion-collapse collapse show"
-						aria-labelledby="flush-headingOne"
-						data-bs-parent="#accordionFlushExample"
-					>
-						<div class="accordion-body">
-							<form class="row g-3">
-                <div class="col-md-6">
-                  <label for="street_address" class="visually-hidden">Street Address</label>
-                  <input type="text" class="form-control" id="street_address" placeholder="Street Address">
+      <form action="/cart/checkout/confirm" method="POST" enctype="multipart/form-data">
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                Address Information
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+              <div class="accordion-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="street_address" class="visually-hidden">Street Address</label>
+                    <input type="text" class="form-control" id="street_address" placeholder="Street Address" name="street" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="inputPassword2" class="visually-hidden">City</label>
+                    <input type="text" class="form-control" id="staticEmail2" placeholder="City/Municipality/Town" name="city" required>
+                  </div>
                 </div>
-                <div class="col-md-6">
-                  <label for="inputPassword2" class="visually-hidden">City</label>
-                  <input type="text" class="form-control" id="staticEmail2" placeholder="City/Municipality/Town">
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+                Payment Information
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+              <div class="accordion-body">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="payment_option" id="cod" value="COD" checked onclick="isGcashChecked(this)">
+                  <label class="form-check-label" for="inlineRadio1">Cash on Delivery</label>
                 </div>
-              </form>
-						</div>
-					</div>
-				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="flush-headingTwo">
-						<button
-							class="accordion-button collapsed"
-							type="button"
-							data-bs-toggle="collapse"
-							data-bs-target="#flush-collapseTwo"
-							aria-expanded="false"
-							aria-controls="flush-collapseTwo"
-						>
-							Payment Information
-						</button>
-					</h2>
-					<div
-						id="flush-collapseTwo"
-						class="accordion-collapse collapse"
-						aria-labelledby="flush-headingTwo"
-						data-bs-parent="#accordionFlushExample"
-					>
-						<div class="accordion-body">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="payment_option" id="cod" value="COD" checked onclick="isGcashChecked(this)">
-                <label class="form-check-label" for="inlineRadio1">Cash on Delivery</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="payment_option" id="gcash" value="GCash" onclick="isGcashChecked(this)">
+                  <label class="form-check-label" for="inlineRadio2">GCash</label>
+                </div>
+                <div class="mb-3 d-none" id="photo">
+                  <label for="formFile" class="form-label">Default file input example</label>
+                  <input class="form-control w-50" type="file" id="formFile" name="proof_of_payment">
+                </div>
               </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="payment_option" id="gcash" value="GCash" onclick="isGcashChecked(this)">
-                <label class="form-check-label" for="inlineRadio2">GCash</label>
-              </div>
-              <div class="mb-3 d-none" id="photo">
-                <label for="formFile" class="form-label">Default file input example</label>
-                <input class="form-control" type="file" id="formFile">
-              </div>
-						</div>
-					</div>
-				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="flush-headingThree">
-						<button
-							class="accordion-button collapsed"
-							type="button"
-							data-bs-toggle="collapse"
-							data-bs-target="#flush-collapseThree"
-							aria-expanded="false"
-							aria-controls="flush-collapseThree"
-						>
-							Your Order
-						</button>
-					</h2>
-					<div
-						id="flush-collapseThree"
-						class="accordion-collapse collapse"
-						aria-labelledby="flush-headingThree"
-						data-bs-parent="#accordionFlushExample"
-					>
-						<div class="accordion-body">
-							<table class="table table-hover align-middle mb-0">
-								<tbody>
-									<% cart.products.forEach((product, idx) => { %>
-                    <tr>
-                      <td><img src="<%= product.image %>" alt="<%= product.name %>" height="75px" width="75px"></td>
-                      <td><%= product.name %></td>
-                      <td>₱ <%= product.price %> x <%= product.carts.qty %></td>
-                      <td>
-                        <div class="d-flex justify-content-between align-items-center">
-                          ₱ <%= (product.price * product.carts.qty) %>
-                        </div>
-                      </td>
-                    </tr>
-                    <% }) %>
-                    <tfoot class="border-bottom-0">
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
+                Your Order
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
+              <div class="accordion-body">
+                <table class="table table-hover align-middle mb-0">
+                  <tbody>
+                    <% cart.products.forEach((product, idx) => { %>
+                      <input type="hidden" name="cartIds[]" value="<%= product.carts.id %>" />
                       <tr>
-                        <td colspan="3" class="text-right">
-                          Total
+                        <td><img src="<%= product.image %>" alt="<%= product.name %>" height="75px" width="75px"></td>
+                        <td><%= product.name %></td>
+                        <td>₱ <%= product.price %> x <%= product.carts.qty %></td>
+                        <td>
+                          <div class="d-flex justify-content-between align-items-center">
+                            ₱ <%= (product.price * product.carts.qty) %>
+                          </div>
                         </td>
-                        <td>₱ <%= total %></td>
                       </tr>
-                    </tfoot>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
+                      <% }) %>
+                      <tfoot class="border-bottom-0">
+                        <tr>
+                          <td colspan="3" class="text-right">
+                            Total
+                          </td>
+                          <td>₱ <%= total %></td>
+                        </tr>
+                      </tfoot>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="d-flex flex-row-reverse">
           <button type="submit" class="btn btn-primary mt-3">Place Order</button>
         </div>
-			</div>
+      </form>
 		</div>
 		<script>
       const photo = document.getElementById("photo")
+      const inputPhoto = document.getElementById("formFile")
       function isGcashChecked(event) {
         if (event.value === 'GCash' && event.checked) {
           photo.classList.remove("d-none");
+          inputPhoto.required = true;
         } else {
           photo.classList.add("d-none");
+          inputPhoto.required = false;
         }
       }
     </script>

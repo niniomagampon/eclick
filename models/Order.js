@@ -11,23 +11,18 @@ Order.init(
 		address: {
 			type: DataTypes.STRING,
 			allowNull: false,
-			validate: {
-				msg: "Address is required.",
-			},
 		},
 		payment_type: {
 			type: DataTypes.STRING,
 			allowNull: false,
-			validate: {
-				msg: "Payment Type is required.",
-			},
 		},
 		payment_status: {
 			type: DataTypes.STRING,
 			allowNull: false,
-			validate: {
-				msg: "Payment Status is required.",
-			},
+		},
+		proof_of_payment: {
+			type: DataTypes.STRING,
+			allowNull: true,
 		},
 		order_status: {
 			type: DataTypes.STRING,

@@ -1,6 +1,6 @@
-const EJS_INFO = require("../constants/ejs");
+const { PAYMENT_STATUS, ORDER_STATUS } = require("../constants/order");
 const cartService = require("../service/cart.service");
-const withErrors = require("../utils/withErrors");
+const orderService = require("../service/order.service");
 
 const get = async (req, res) => {
 	const accountId =
@@ -16,6 +16,8 @@ const get = async (req, res) => {
 
 	res.render("cart/index", {
 		userName: req.session.username,
+		status: req.session.status,
+		msg: req.session.message,
 		logInOut: "Logout",
 		cart,
 		total,
@@ -23,6 +25,8 @@ const get = async (req, res) => {
 };
 
 const add = async (req, res) => {
+	req.session.message = undefined;
+	req.session.status = undefined;
 	const { qty, productId } = req.body;
 	const accountId =
 		req.session.user === undefined ? undefined : req.session.user.id;
@@ -45,6 +49,8 @@ const add = async (req, res) => {
 };
 
 const update = async (req, res) => {
+	req.session.message = undefined;
+	req.session.status = undefined;
 	const { id } = req.params;
 	const { q: action } = req.query;
 	const accountId =
@@ -65,6 +71,8 @@ const update = async (req, res) => {
 };
 
 const remove = async (req, res) => {
+	req.session.message = undefined;
+	req.session.status = undefined;
 	const { cartId } = req.body;
 	const accountId =
 		req.session.user === undefined ? undefined : req.session.user.id;
@@ -112,4 +120,55 @@ const checkout = async (req, res) => {
 	});
 };
 
-module.exports = { add, get, remove, update, checkout };
+const confirm = async (req, res) => {
+	req.session.message = undefined;
+	req.session.status = undefined;
+	const accountId =
+		req.session.user === undefined ? undefined : req.session.user.id;
+	if (accountId === undefined) return res.redirect("/login");
+
+	const { street, city, payment_option, cartIds } = req.body;
+	const proof_of_payment =
+		req.file === undefined ? null : `/uploads/${req.file.filename}`;
+
+	let cart = await cartService.get({ accountId });
+	cart.products.forEach((product, index) => {
+		if (!cartIds.includes(product.carts.id.toString())) {
+			cart.products.splice(index, 1);
+		}
+	});
+	let total = 0;
+	cart.products.forEach((product) => {
+		total += product.price * product.carts.qty;
+	});
+
+	const convertedCartId = [];
+	cartIds.forEach((id) => {
+		convertedCartId.push(parseInt(id));
+	});
+
+	const orderPayload = {
+		ref_number: Math.random().toString(36).substr(2, 6),
+		address: `${street} ${city}`,
+		payment_type: payment_option,
+		payment_status: PAYMENT_STATUS.PENDING,
+		order_status: ORDER_STATUS.PLACED,
+		total,
+		accountId,
+		proof_of_payment,
+	};
+
+	try {
+		const order = await orderService.add(orderPayload, convertedCartId, cart);
+		if ("status" in order && order.status === 400) {
+			req.session.status = order.status;
+			req.session.message = order.message;
+
+			res.redirect("/cart");
+		}
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+module.exports = { add, get, remove, update, checkout, confirm };

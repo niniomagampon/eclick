@@ -29,10 +29,9 @@ Product.init(
     image: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
       validate: {
         notEmpty: {
-          msg: "Product Name is required",
+          msg: "Product Image is required",
         },
       },
     },
