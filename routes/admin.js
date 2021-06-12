@@ -13,12 +13,19 @@ adminRoute.get("/", dashboardController.dashboard);
 adminRoute.get("/login", (req, res) => {
 	res.render("admin/login");
 });
+adminRoute.get("/logout", (req, res) => {
+	req.session.user = undefined;
+	req.session.userType = undefined;
+	req.session.isLoggedIn = false;
+
+	res.redirect("/admin/login");
+});
 adminRoute.post("/login", adminLogin);
 
 /** Categories Endpoint */
 adminRoute.get("/categories", Category.index);
 adminRoute.get("/categories/create", (req, res) => {
-	res.render("admin/categories/add");
+	res.render("admin/categories/add", { user: req.session.user });
 });
 adminRoute.post("/categories/create", Category.add);
 adminRoute.get("/categories/edit/:id", Category.edit);
@@ -30,7 +37,7 @@ adminRoute.get("/categories/restore/:id", Category.restore);
 // Users Endpoint
 adminRoute.get("/users", Account.index);
 adminRoute.get("/users/create", (req, res) => {
-	res.render("admin/users/add");
+	res.render("admin/users/add", { user: req.session.user });
 });
 
 adminRoute.post("/users/create", Account.add);

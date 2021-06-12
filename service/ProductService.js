@@ -18,8 +18,8 @@ const all = async (column = "createdAt", sort = "DESC", paranoid = "false") => {
 
 const create = async (payload) => {
 	try {
-		await Product.create(payload);
-		return true;
+		const product = await Product.create(payload);
+		return { success: true, product };
 	} catch (err) {
 		console.log(`catch error: ${err}`);
 		return err;

@@ -4,6 +4,7 @@ const Product = require("./Product");
 const Cart = require("./Cart");
 const Order = require("./Order");
 const OrderLineItem = require("./OrderLine");
+const ProductLogs = require("./ProductLogs");
 
 Category.hasMany(Product);
 Product.belongsTo(Category);
@@ -17,4 +18,17 @@ OrderLineItem.belongsTo(Product);
 Order.belongsTo(Account);
 Account.hasMany(Order);
 
-module.exports = { Account, Category, Product, Cart, Order, OrderLineItem };
+Product.hasMany(ProductLogs);
+Account.hasMany(ProductLogs);
+ProductLogs.belongsTo(Product);
+ProductLogs.belongsTo(Account);
+
+module.exports = {
+	Account,
+	Category,
+	Product,
+	Cart,
+	Order,
+	OrderLineItem,
+	ProductLogs,
+};

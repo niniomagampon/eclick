@@ -6,7 +6,6 @@ const dashboard = async (req, res) => {
 	const order = await dashboardService.countOrders();
 	const recentOrders = await dashboardService.getRecentOrders();
 	const tempOrder = await dashboardService.getOrderForChart();
-
 	const chart = {
 		labels: [
 			"January",
@@ -35,6 +34,7 @@ const dashboard = async (req, res) => {
 		order,
 		recentOrders,
 		chart,
+		user: req.session.user,
 	});
 };
 

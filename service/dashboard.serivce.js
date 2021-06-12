@@ -53,7 +53,7 @@ const getOrderForChart = async () => {
         MONTH(createdAt) as SalesMonth,
         SUM(total) AS TotalSales
       FROM orders
-      WHERE payment_status = '${PAYMENT_STATUS.PAID}' AND order_status = '${ORDER_STATUS.DELIVERED}' AND YEAR(createdAt) = ${n}
+      WHERE payment_status = '${PAYMENT_STATUS.PAID}' AND order_status = '${ORDER_STATUS.DELIVERED}' AND YEAR(createdAt) = ${n} AND deletedAt IS NULL
       GROUP BY YEAR(createdAt), MONTH(createdAt)
       ORDER BY YEAR(createdAt), MONTH(createdAt)
     `,

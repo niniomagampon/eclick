@@ -1,82 +1,80 @@
 <%- include('../layout/layout') -%>
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Users</li>
-    </ol>
-  </nav>
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Users</li>
+	</ol>
+</nav>
 
-  <div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <div class="d-flex justify-content-between">
-        <h1 class="h3 text-gray-800">User Management</h1>
-        <a href="/admin/users/create"><button type="button" class="btn btn-warning btn-sm">
-            Add Staff
-          </button></a>
-      </div>
-    </div>
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-          <thead>
-            <tr class="text-center">
-              <th>Name</th>
-              <th>Email</th>
-              <th>Address</th>
-              <th>Mobile</th>
-              <th>User Type</th>
-              <th>Date Created</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody class="text-center">
-            <% for (const user of users) { %>
-              <tr>
-                <form action="">
-                  <td>
-                    <%= user.name %>
-                  </td>
-                  <td>
-                    <%= user.email %>
-                  </td>
-                  <td>
-                    <%= user.address %>
-                  </td>
-                  <td>
-                    <%= user.mobile %>
-                  </td>
-                  <td>
-                    <%= user.userType %>
-                  </td>
-                  <td>
-                    <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(user.createdAt) %>
-                  </td>
-                  <td class="">
-                    <% if (user.deletedAt == null) {%>
-                      <a href="/admin/users/edit/<%= user.id %>">
-                        <i class="text-warning fas fa-edit"></i>
-                      </a>
-                      <a
-                        href="/admin/users/delete/<%= user.id %>"
-                        onclick="return confirm('Are you sure you want to delete this product?')"
-                      >
-                        <i class="text-danger fas fa-trash-alt"></i>
-                      </a>
-                      <% } else {%>
-                      <a
-                        href="/admin/users/restore/<%= user.id %>"
-                        onclick="return confirm('Are you sure you want to retore this product?')"
-                      >
-                        <i class="text-info fas fa-trash-restore-alt"></i>
-                      </a>
-                      <%}%>
-                  </td>
-                </form>
-              </tr>
-              <% } %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <%- include('../layout/footer') -%>
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<div class="d-flex justify-content-between">
+			<h1 class="h3 text-gray-800">User Management</h1>
+			<% if(user.userType === 'Admin') { %>
+			<a href="/admin/users/create">
+				<button type="button" class="btn btn-warning btn-sm">Add Staff</button>
+			</a>
+			<% }%>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table
+				class="table table-bordered"
+				id="dataTable"
+				width="100%"
+				cellspacing="0"
+			>
+				<thead>
+					<tr class="text-center">
+						<th>Name</th>
+						<th>Email</th>
+						<th>Address</th>
+						<th>Mobile</th>
+						<th>User Type</th>
+						<th>Date Created</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody class="text-center">
+					<% for (const user of users) { %>
+					<tr>
+						<form action="">
+							<td><%= user.name %></td>
+							<td><%= user.email %></td>
+							<td><%= user.address %></td>
+							<td><%= user.mobile %></td>
+							<td><%= user.userType %></td>
+							<td>
+								<%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month:
+								'long', day: '2-digit'}).format(user.createdAt) %>
+							</td>
+							<td class="">
+								<% if (user.deletedAt == null) {%>
+								<a href="/admin/users/edit/<%= user.id %>">
+									<i class="text-warning fas fa-edit"></i>
+								</a>
+								<a
+									href="/admin/users/delete/<%= user.id %>"
+									onclick="return confirm('Are you sure you want to delete this product?')"
+								>
+									<i class="text-danger fas fa-trash-alt"></i>
+								</a>
+								<% } else {%>
+								<a
+									href="/admin/users/restore/<%= user.id %>"
+									onclick="return confirm('Are you sure you want to retore this product?')"
+								>
+									<i class="text-info fas fa-trash-restore-alt"></i>
+								</a>
+								<%}%>
+							</td>
+						</form>
+					</tr>
+					<% } %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<%- include('../layout/footer') -%>

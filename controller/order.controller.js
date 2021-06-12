@@ -55,13 +55,14 @@ const AgetAllOrders = async (req, res) => {
 		payment_type,
 		payment_status,
 		order_status,
+    user: req.session.user
 	});
 };
 
 const AsingleOrder = async (req, res) => {
 	const { ref_number } = req.params;
 	const orders = await orderService.getOrderByReference(ref_number);
-	res.render("admin/orders/view", { orders });
+	res.render("admin/orders/view", { orders,user: req.session.user });
 };
 
 const AupdateOrder = async (req, res) => {
@@ -73,7 +74,7 @@ const AupdateOrder = async (req, res) => {
 	);
 
 	if (typeof order === "boolean" && order === true) {
-		res.redirect("/admin/orders");
+		res.redirect("/admin/orders?payment_type=&payment_status=&order_status=&from=&to=");
 	} else {
 		res.redirect(`/admin/orders/${ref_number}`);
 	}

@@ -14,6 +14,7 @@ const index = async (req, res) => {
 	if (users) {
 		res.render("admin/users/index", {
 			users,
+      user: req.session.user,
 		});
 	} else {
 		console.log("error");
@@ -54,6 +55,7 @@ const restore = async (req, res) => {
 };
 
 const edit = async (req, res) => {
+  if (req.session.user.userType !== 'Admin') res.redirect("/admin/users")
 	const { id } = req.params;
 	const result = await accountService.getOneUser(id);
 	const { isSuccess, errors } = req.session;
@@ -68,6 +70,7 @@ const edit = async (req, res) => {
 			userType: result.userType,
 			isSuccess,
 			errors,
+      user: req.session.user,
 		});
 	} else {
 		res.redirect("/admin/users");
@@ -112,6 +115,7 @@ const adminLogin = async (req, res) => {
 
 		if (match) {
 			req.session.user = user;
+			req.session.userType = user.userType;
 			req.session.isLoggedIn = true;
 			res.redirect("/admin");
 		} else {
