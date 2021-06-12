@@ -63,6 +63,28 @@ const add = async (orderPayload, cartIds, cart) => {
 	}
 };
 
+const getCustomerOrders = async ({ accountId }) => {
+	try {
+		return await Order.findAll({
+			where: {
+				accountId,
+			},
+			include: [
+				{
+					model: OrderLineItem,
+					include: Product,
+				},
+				{
+					model: Account,
+				},
+			],
+			order: [["createdAt", "DESC"]],
+		});
+	} catch (err) {
+		return err;
+	}
+};
+
 const getAllOrder = async ({
 	accountId,
 	from,
@@ -120,7 +142,7 @@ const getAllOrder = async ({
 		if (from !== "" && to !== "") {
 			const start = new Date(from);
 			const end = new Date(to);
-      end.setHours(23, 59, 59, 999);
+			end.setHours(23, 59, 59, 999);
 			filter.where = {
 				...filter.where,
 				createdAt: {
@@ -129,7 +151,6 @@ const getAllOrder = async ({
 			};
 		}
 
-		console.log(`Hello`, filter);
 		return await Order.findAll({
 			...filter,
 			include: [
@@ -223,4 +244,5 @@ module.exports = {
 	getOrderByReference,
 	updateOrder,
 	getSingleProduct,
+  getCustomerOrders
 };
