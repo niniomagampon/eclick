@@ -81,7 +81,7 @@ const update = async (req, res) => {
 	clearSession(req);
 	const { id, name, email, address, mobile, userType } = req.body;
 	const result = await accountService.update(id, name, email,address, mobile, userType);
-	console.log(result);
+
 	if (typeof result === "object" && result[0] === 1) {
 		req.session.isSuccess = true;
 		res.redirect(`/admin/users/edit/${id}`);
