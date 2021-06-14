@@ -46,6 +46,6 @@ app.use("/admin", AUTH, adminRoute);
 
 // Server Starter
 app.listen(port, async () => {
-	await db.sync({alter:true});
+	await db.sync();
 	console.log(`Server Started on port : ${port}`);
 });
