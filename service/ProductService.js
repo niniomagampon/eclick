@@ -99,6 +99,22 @@ const addQty = async (id, qty) => {
 	}
 };
 
+const searchProduct = async (payload) => {
+	try {
+    const Op = Sequelize.Op;
+
+		return await Product.findAll({
+			where: {
+				name: {
+          [Op.like]: `${payload}%`
+        },
+			},
+		});
+	} catch (err) {
+		return err;
+	}
+};
+
 module.exports = {
 	create,
 	all,
@@ -108,4 +124,5 @@ module.exports = {
 	update,
 	perCategoryProd,
 	addQty,
+	searchProduct,
 };
