@@ -30,5 +30,8 @@ customerRoute.get("/order-summary/:status", Order.orderSummaryParams)
 // Settings
 customerRoute.get("/settings", Page.settingsPage)
 customerRoute.get("/settings/edit", Page.settingsEdit)
+customerRoute.post("/settings/edit", Page.settingsUpdate)
+customerRoute.get("/settings/change-password", Page.settingsPassword)
+customerRoute.post("/settings/change-password", Page.settingsPasswordUpdate)
 
 module.exports = customerRoute;

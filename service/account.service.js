@@ -85,6 +85,17 @@ const update = async (id, name, email, address, mobile, userType) => {
   }
 }
 
+const updatePassword = async (id, password) =>{
+  try{
+    return await Account.update({
+      password
+    }, {where : {id}})
+  }catch(err){
+    console.log(err, password)
+  
+  }
+}
+
 const restore = async (id) => {
   try {
     await Account.restore({
@@ -106,5 +117,6 @@ module.exports = {
   deleteUser,
   getOneUser,
   update,
-  restore
+  restore,
+  updatePassword
 }
