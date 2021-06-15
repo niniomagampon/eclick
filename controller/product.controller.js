@@ -148,7 +148,7 @@ const getAll = async (req, res) => {
 		userName = req.session.username;
 		logInOut = "Logout";
 	}
-	const categories = await indexCategory("name", "ASC");
+	const categories = await indexCategory("name", "ASC", true);
 
 	const products = await productService.all();
 
