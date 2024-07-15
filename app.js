@@ -16,7 +16,7 @@ db.authenticate()
 	.catch((err) => console.log("Error: " + err));
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3002;
 
 // Middleware
 app.set("view engine", "ejs");
